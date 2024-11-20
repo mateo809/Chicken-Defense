@@ -22,7 +22,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         _inventoryCase = inventoryCase;
     }
 
-
     public void OnBeginDrag(PointerEventData data)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

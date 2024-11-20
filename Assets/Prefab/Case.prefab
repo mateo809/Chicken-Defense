@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8718322482918861571}
   m_Layer: 5
   m_Name: Case
-  m_TagString: Untagged
+  m_TagString: Build
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 376681784630370556}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Build
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
