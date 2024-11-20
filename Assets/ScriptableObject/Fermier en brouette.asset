@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a955c5772fef2fb45b5149163d4c2321, type: 3}
+  m_Name: Fermier en brouette
+  m_EditorClassIdentifier: 
+  enemyName: Fermier en brouette
+  speed: 6
+  health: 150
+  damage: 8
+  enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}

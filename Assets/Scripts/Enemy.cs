@@ -2,35 +2,32 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [Header("Enemy Settings")]
+    public EnemyType enemyType;  
 
-    private Transform _target;
-    private int _waypointindex = 0;
+    private int currentHealth;
 
-    void Start()
+    private void Start()
     {
-        _target = Waypoint.points[0];
-    }
-
-    void Update()
-    {
-        Vector3 dir = _target.position - transform.position;
-        transform.Translate(dir.normalized * _speed * Time.deltaTime, Space.World);
-
-        if(Vector3.Distance(transform.position, _target.position) <= 0.5)
+        if (enemyType != null)
         {
-            NextWaypoint();
+            currentHealth = enemyType.health;
+            transform.name = enemyType.enemyName;  
+
         }
     }
 
-    public void NextWaypoint()
+    public void TakeDamage(int damage)
     {
-        if (_waypointindex >= Waypoint.points.Length -1)
+        currentHealth -= damage;
+        if (currentHealth <= 0)
         {
-            Destroy(gameObject);
-            return;
+            Die();
         }
-        _waypointindex++;
-        _target = Waypoint.points[_waypointindex];
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject); 
     }
 }

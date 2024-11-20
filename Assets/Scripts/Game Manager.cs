@@ -5,24 +5,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Transform _spawner;
-    [SerializeField] TextMeshProUGUI _wave;
-    [SerializeField] TextMeshProUGUI _coins;
-    [SerializeField] TextMeshProUGUI _timer;
+    public static GameManager instance;
 
-    public float TimeBetweenWaves = 10f; 
+    [SerializeField] private EnemyType[] enemyTypes;  
 
+    [SerializeField] private Transform _spawner;
+    [SerializeField] private TextMeshProUGUI _wave;
+    [SerializeField] private TextMeshProUGUI _coins;
+    [SerializeField] private TextMeshProUGUI _timer;
+
+    public float TimeBetweenWaves = 0f;
     private float _countdown;
 
     [SerializeField] private float spawnDelay = 0.5f;
 
     public int Coins = 0;
     public int WaveNumber = 0;
-    private int enemiesRemaining = 0;
+    public int enemiesRemaining = 0;
 
     private bool waveInProgress = false;
 
-    public List<GameObject> EnemyPrefab = new List<GameObject>();
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -32,10 +41,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!waveInProgress)
+        if (!waveInProgress && enemiesRemaining <= 0)
         {
             _countdown -= Time.deltaTime;
-            if (_countdown <= 0 && enemiesRemaining <= 0)
+
+            if (_countdown <= 0)
             {
                 StartCoroutine(SpawnWave());
             }
@@ -46,11 +56,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SpawnWave()
     {
-        waveInProgress = true; 
+        waveInProgress = true;
         WaveNumber++;
-        _countdown = TimeBetweenWaves; 
+        _countdown = TimeBetweenWaves;
 
-        int enemiesToSpawn = WaveNumber + 3; 
+        int enemiesToSpawn = WaveNumber + 6;
         enemiesRemaining = enemiesToSpawn;
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -59,28 +69,18 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(spawnDelay);
         }
 
-        waveInProgress = false; 
+        waveInProgress = false;
     }
 
     public void SpawnEnemy()
     {
-        if (EnemyPrefab.Count > 0)
+        if (enemyTypes.Length > 0)
         {
-            int indexSpawn = WaveNumber;
-            GameObject randomEnemy = EnemyPrefab[indexSpawn];
-            GameObject spawnedEnemy = Instantiate(randomEnemy, _spawner.position, _spawner.rotation);
-            spawnedEnemy.transform.parent = _spawner;
-            enemiesRemaining++;
-        }
-    }
-
-    public void HandleEnemyDeath()
-    {
-        enemiesRemaining--;
-        if (enemiesRemaining <= 0 && waveInProgress)
-        {
-            waveInProgress = false;
-            _countdown = TimeBetweenWaves; 
+            int randomIndex = Random.Range(0, enemyTypes.Length);
+            EnemyType chosenType = enemyTypes[randomIndex];
+            GameObject spawnedEnemy = Instantiate(chosenType.enemyPrefab, _spawner.position, _spawner.rotation);
+            Enemy enemyScript = spawnedEnemy.GetComponent<Enemy>();
+            enemyScript.enemyType = chosenType;
         }
     }
 
@@ -88,6 +88,13 @@ public class GameManager : MonoBehaviour
     {
         _coins.text = "Coins : " + Coins.ToString();
         _wave.text = "Wave : " + WaveNumber.ToString();
-        _timer.text = "Timer : " + (waveInProgress ? "In Progress" : Mathf.Ceil(_countdown).ToString());
+        if (waveInProgress || enemiesRemaining > 0)
+        {
+            _timer.text = "Timer : In Progress";
+        }
+        else
+        {
+            _timer.text = "Timer : " + Mathf.Ceil(_countdown).ToString();
+        }
     }
 }
