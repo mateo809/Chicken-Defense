@@ -1,0 +1,84 @@
+using UnityEngine;
+
+public class Tourelle : MonoBehaviour
+{
+    private Transform target;
+    public Transform partToRotate;
+
+    private Enemy enemy;
+    public BuildingScriptableObject tourelle;
+
+    public string enemyTag = "Enemy";
+
+    public float Range = 15f;
+    public float TurnSpeed = 20f;
+    private float attackCooldown = 0f;  
+    private float attackSpeed;
+    public object buildingScriptable { get; private set; }
+
+    private void Start()
+    {
+        attackSpeed = tourelle.Attackspeed;
+        Range = tourelle.Range;
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+    }
+
+    private void Update()
+    {
+        if (target == null)
+        {
+            return;
+        }
+        Vector3 dir = target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
+        partToRotate.rotation = Quaternion.Euler(0f,rotation.y,0f);
+
+
+        if (attackCooldown <= 0f)
+        {
+            if (tourelle != null && enemy != null)
+            {
+                int damage = tourelle.Damage;
+                enemy.TakeDamage(damage);
+                attackCooldown = attackSpeed;  
+            }
+        }
+        else
+        {
+            attackCooldown -= Time.deltaTime;  
+        }
+    }
+
+    void UpdateTarget()
+    {
+        GameObject[] ennemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        float shortestDistance = Mathf.Infinity;
+        GameObject nearestEnemy = null;
+
+        foreach (GameObject enemyObj in ennemies)
+        {
+            float distanceToEnemy = Vector3.Distance(transform.position, enemyObj.transform.position);
+            if (distanceToEnemy < shortestDistance)
+            {
+                shortestDistance = distanceToEnemy;
+                nearestEnemy = enemyObj;
+            }
+        }
+
+        if (nearestEnemy != null && shortestDistance <= Range) 
+        {
+            target = nearestEnemy.transform;
+            enemy = nearestEnemy.GetComponent<Enemy>();
+            enemy.SetTourelle(this);
+        }
+        else
+        {
+            target = null;  
+        }
+    }
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, Range);
+    }
+}

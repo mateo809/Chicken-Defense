@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a955c5772fef2fb45b5149163d4c2321, type: 3}
   m_Name: Fermier en brouette
   m_EditorClassIdentifier: 
+  Coins: 10
   enemyName: Fermier en brouette
-  speed: 6
-  health: 150
+  speed: 10
+  health: 60
   damage: 8
   enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}

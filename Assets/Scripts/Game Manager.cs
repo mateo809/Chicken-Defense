@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private EnemyType[] enemyTypes;  
+    [SerializeField] private EnemyTypeScriptableObject[] enemyTypes;  
 
     [SerializeField] private Transform _spawner;
     [SerializeField] private TextMeshProUGUI _wave;
@@ -50,8 +50,8 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnWave());
             }
         }
-
         UpdateUI();
+        Debug.Log(enemiesRemaining);
     }
 
     public IEnumerator SpawnWave()
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         WaveNumber++;
         _countdown = TimeBetweenWaves;
 
-        int enemiesToSpawn = WaveNumber + 6;
+        int enemiesToSpawn = WaveNumber * 2;
         enemiesRemaining = enemiesToSpawn;
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         if (enemyTypes.Length > 0)
         {
             int randomIndex = Random.Range(0, enemyTypes.Length);
-            EnemyType chosenType = enemyTypes[randomIndex];
+            EnemyTypeScriptableObject chosenType = enemyTypes[randomIndex];
             GameObject spawnedEnemy = Instantiate(chosenType.enemyPrefab, _spawner.position, _spawner.rotation);
             Enemy enemyScript = spawnedEnemy.GetComponent<Enemy>();
             enemyScript.enemyType = chosenType;
