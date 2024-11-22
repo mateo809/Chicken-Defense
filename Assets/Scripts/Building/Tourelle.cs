@@ -9,20 +9,28 @@ public class Tourelle : MonoBehaviour
     public BuildingScriptableObject tourelle;
 
     public GameObject projectilePrefab; 
-    public Transform firePoint;
+    public Transform firePoint; 
 
-    public string enemyTag = "Enemy";
+    public string enemyTag = "Enemy"; 
 
-    public float Range = 15f;
-    public float TurnSpeed = 20f;
-    private float attackCooldown = 0f;  
-    private float attackSpeed;
+    public float Range = 15f; 
+    public float TurnSpeed = 20f; 
+    private float attackCooldown = 0f; 
+    private float attackSpeed; 
+
     public object buildingScriptable { get; private set; }
 
     private void Start()
     {
-        attackSpeed = tourelle.Attackspeed;
-        Range = tourelle.Range;
+        if (tourelle != null)
+        {
+            attackSpeed = tourelle.Attackspeed;
+            Range = tourelle.Range;
+        }
+        else
+        {
+            Debug.LogWarning("La tourelle n'est pas assignée dans l'inspecteur !");
+        }
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -32,21 +40,20 @@ public class Tourelle : MonoBehaviour
         {
             return;
         }
+
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f,rotation.y,0f);
-
+        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         if (attackCooldown <= 0f)
         {
             if (tourelle != null && enemy != null)
             {
                 Shoot();
-                attackCooldown = attackSpeed;
+                attackCooldown = attackSpeed; 
                 int damage = tourelle.Damage;
                 enemy.TakeDamage(damage);
-                attackCooldown = attackSpeed;  
             }
         }
         else
@@ -71,17 +78,18 @@ public class Tourelle : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= Range) 
+        if (nearestEnemy != null && shortestDistance <= Range)
         {
             target = nearestEnemy.transform;
             enemy = nearestEnemy.GetComponent<Enemy>();
-            enemy.SetTourelle(this);
+            enemy.SetTourelle(this);  
         }
         else
         {
             target = null;  
         }
     }
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, Range);
@@ -89,19 +97,21 @@ public class Tourelle : MonoBehaviour
 
     void Shoot()
     {
-        if (target == null)
+        if (target == null || projectilePrefab == null || firePoint == null)
         {
-            Debug.LogWarning("No target to shoot at!");
             return;
         }
 
+        // Instancier le projectile et l'orienter vers la cible
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         if (projectile != null)
         {
-            projectile.Seek(target);
-            projectile.damage = tourelle.Damage; 
+            projectile.Seek(target);  
+            if (tourelle != null)
+            {
+                projectile.damage = tourelle.Damage;  
+            }
         }
     }
-
 }

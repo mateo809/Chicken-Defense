@@ -81,7 +81,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             Destroy(_rangePreviewSphere); 
             TryPlaceObject(eventData);
         }
-
         InventoryBuildManager.Instance.FadeUIElement(1f);
     }
 
