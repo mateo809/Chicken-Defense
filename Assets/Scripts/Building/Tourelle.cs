@@ -8,6 +8,9 @@ public class Tourelle : MonoBehaviour
     private Enemy enemy;
     public BuildingScriptableObject tourelle;
 
+    public GameObject projectilePrefab; 
+    public Transform firePoint;
+
     public string enemyTag = "Enemy";
 
     public float Range = 15f;
@@ -39,6 +42,8 @@ public class Tourelle : MonoBehaviour
         {
             if (tourelle != null && enemy != null)
             {
+                Shoot();
+                attackCooldown = attackSpeed;
                 int damage = tourelle.Damage;
                 enemy.TakeDamage(damage);
                 attackCooldown = attackSpeed;  
@@ -81,4 +86,22 @@ public class Tourelle : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, Range);
     }
+
+    void Shoot()
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("No target to shoot at!");
+            return;
+        }
+
+        GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Projectile projectile = projectileGO.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            projectile.Seek(target);
+            projectile.damage = tourelle.Damage; 
+        }
+    }
+
 }

@@ -107,12 +107,22 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (tourelle != null && GameManager.instance.Coins >= tourelle.Cost)
         {
             Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-
             if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
             {
-                InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, hit.point);
-                GameManager.instance.Coins -= tourelle.Cost;
-                Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
+                if (hit.collider.CompareTag("Floor"))  
+                {
+                    InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, hit.point);
+                    GameManager.instance.Coins -= tourelle.Cost;
+                    Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
+                }
+                else
+                {
+                    Debug.Log("Impossible de poser le bâtiment ici, ce n'est pas un sol.");
+                }
+            }
+            else
+            {
+                Debug.Log("Aucun sol détecté pour poser le bâtiment.");
             }
         }
         else
@@ -121,13 +131,14 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
     }
 
+
     private void CreateRangePreview()
     {
         _rangePreviewSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         _rangePreviewSphere.name = "Range Preview Sphere";
         _rangePreviewSphere.transform.localScale = new Vector3(tourelle.Range * 2, 0.1f, tourelle.Range * 2); 
         _rangePreviewSphere.GetComponent<Collider>().enabled = false; 
-        _rangePreviewSphere.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.3f); 
+        _rangePreviewSphere.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.1f); 
     }
 
     private void UpdateRangePreview()

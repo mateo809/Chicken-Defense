@@ -18,4 +18,4 @@ MonoBehaviour:
   Attackspeed: 1
   Damage: 30
   Range: 15
-  BuildPrefab: {fileID: 8185635889979501102, guid: 35c68c0866de0194a9072c891ec7d033, type: 3}
+  BuildPrefab: {fileID: 8786134068258369711, guid: 5999b0da53b5e024cbe19b09baa3a380, type: 3}
