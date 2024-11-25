@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de6e455c8bc8b9478ee1c915c38ffe8, type: 3}
+  m_Name: Canon a plumes
+  m_EditorClassIdentifier: 
+  Cost: 120
+  sprite: {fileID: 21300000, guid: 6ca4fbb643d1d7148a03e009115eed38, type: 3}
+  BuildName: Canon a plumes
+  Attackspeed: 1
+  Damage: 30
+  Range: 20
+  BuildPrefab: {fileID: 8786134068258369711, guid: 5999b0da53b5e024cbe19b09baa3a380, type: 3}

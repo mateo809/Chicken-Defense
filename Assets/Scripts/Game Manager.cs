@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public int WaveNumber = 0;
     public int enemiesRemaining = 0;
 
+    public Material RedPreview;
+    public Material GreenPreview;
+
     private bool waveInProgress = false;
 
     private void Awake()
@@ -63,7 +66,12 @@ public class GameManager : MonoBehaviour
         WaveNumber++;
         _countdown = TimeBetweenWaves;
 
-        int enemiesToSpawn = WaveNumber * 3;
+        if (WaveNumber % 5 == 0)
+        {
+            IncreaseEnemyStats(0.25f); 
+        }
+
+        int enemiesToSpawn = WaveNumber * 10;
         enemiesRemaining = enemiesToSpawn;
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -74,6 +82,7 @@ public class GameManager : MonoBehaviour
 
         waveInProgress = false;
     }
+
 
     public void SpawnEnemy()
     {
@@ -101,4 +110,21 @@ public class GameManager : MonoBehaviour
             _timer.text =  Mathf.Ceil(_countdown).ToString();
         }
     }
+
+    public Material GetRangePreviewMaterial()  
+    {
+        return RedPreview;
+    }
+
+    private void IncreaseEnemyStats(float percentage)
+    {
+        foreach (var enemyType in enemyTypes)
+        {
+            enemyType.health = Mathf.RoundToInt(enemyType.health * (1 + percentage));
+            enemyType.damage = Mathf.RoundToInt(enemyType.damage * (1 + percentage));
+            enemyType.speed *= (1 + percentage);
+        }
+        Debug.Log("Enemy stats increased by " + (percentage * 100) + "% for wave " + WaveNumber);
+    }
+
 }

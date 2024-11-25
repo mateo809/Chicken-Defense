@@ -437,7 +437,7 @@ Transform:
   m_GameObject: {fileID: 8400530283230361436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 90, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -458,11 +458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fccea7925eaac499fc4b27a224f50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 3857996308684079843, guid: d4cca43d364d71a49ad3c5b22f8d0e83, type: 3}
+  projectilePrefab: {fileID: 5266378106977556716, guid: 7bc7878c49be95d438acc3a15e505a99, type: 3}
   firePoint: {fileID: 3522970131256832902}
-  firingInterval: 0.5
-  rotationSpeed: 5
-  launchForceMultiplier: 15
+  firingInterval: 3
+  rotationSpeed: 20
+  launchForceMultiplier: 0
   detectionRadius: 20
   targetLayer:
     serializedVersion: 2

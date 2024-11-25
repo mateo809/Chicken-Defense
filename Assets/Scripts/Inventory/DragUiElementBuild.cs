@@ -3,11 +3,11 @@ using UnityEngine.EventSystems;
 
 public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private GameObject _prefabToInstantiate;
+    public GameObject _prefabToInstantiate;
     private GameObject _uiElements;
     private GameObject _inventoryCase;
     private GameObject _previewPrefabToInstantiate;
-    private GameObject _rangePreviewSphere; 
+    private GameObject _rangePreviewSphere;
 
     public BuildingScriptableObject tourelle;
     private Vector2 _originalPointerPosition;
@@ -22,10 +22,19 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         _uiElements = uiElement;
         _inventoryCase = inventoryCase;
     }
+
     public void SetTourelle(BuildingScriptableObject newTourelle)
     {
         tourelle = newTourelle;
         Debug.Log("Tourelle assignée : " + (tourelle != null ? tourelle.name : "Aucune"));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && _previewPrefabToInstantiate != null)
+        {
+            _previewPrefabToInstantiate.transform.Rotate(Vector3.up, 90f);  
+        }
     }
 
     public void OnBeginDrag(PointerEventData data)
@@ -58,7 +67,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (_previewPrefabToInstantiate != null)
         {
             UpdatePreviewPosition(data);
-            UpdateRangePreview(); 
+            UpdateRangePreview();
         }
     }
 
@@ -69,7 +78,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (_isOverTrash && _previewPrefabToInstantiate != null)
         {
             Destroy(_previewPrefabToInstantiate);
-            Destroy(_rangePreviewSphere); 
+            Destroy(_rangePreviewSphere);
             _previewPrefabToInstantiate = null;
             InventoryBuildManager.Instance.FadeUIElement(1f);
             return;
@@ -78,7 +87,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (_previewPrefabToInstantiate != null)
         {
             Destroy(_previewPrefabToInstantiate);
-            Destroy(_rangePreviewSphere); 
+            Destroy(_rangePreviewSphere);
             TryPlaceObject(eventData);
         }
         InventoryBuildManager.Instance.FadeUIElement(1f);
@@ -91,12 +100,27 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             _previewPrefabToInstantiate.GetComponent<Tourelle>().enabled = false;
             Vector3 newPosition = ray.GetPoint(enter);
-            newPosition.y = 1f;
+            newPosition.y = 0.5f;
             _previewPrefabToInstantiate.transform.position = newPosition;
 
             if (_rangePreviewSphere != null)
             {
                 _rangePreviewSphere.transform.position = newPosition;
+            }
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000.0f))
+            {
+                // Vérifiez si le raycast touche un sol
+                if (hit.collider.CompareTag("Floor"))
+                {
+                    _rangePreviewSphere.GetComponent<Renderer>().material = GameManager.instance.GetRangePreviewMaterial();
+                }
+                else
+                {
+                    // Appliquez un matériau alternatif si vous n'êtes pas sur un sol
+                    _rangePreviewSphere.GetComponent<Renderer>().material = GameManager.instance.GetRangePreviewMaterial(); 
+                }
             }
         }
     }
@@ -108,9 +132,14 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             Ray ray = Camera.main.ScreenPointToRay(eventData.position);
             if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
             {
-                if (hit.collider.CompareTag("Floor"))  
+                if (hit.collider.CompareTag("Floor"))
                 {
-                    InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, hit.point);
+                    Vector3 position = hit.point;
+                    Quaternion rotation = _previewPrefabToInstantiate != null
+                        ? _previewPrefabToInstantiate.transform.rotation
+                        : Quaternion.identity;
+                    InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, position, rotation);
+
                     GameManager.instance.Coins -= tourelle.Cost;
                     Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
                 }
@@ -133,11 +162,19 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     private void CreateRangePreview()
     {
+        Material rangePreviewMaterial = GameManager.instance.GetRangePreviewMaterial();
         _rangePreviewSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         _rangePreviewSphere.name = "Range Preview Sphere";
-        _rangePreviewSphere.transform.localScale = new Vector3(tourelle.Range * 2, 0.1f, tourelle.Range * 2); 
-        _rangePreviewSphere.GetComponent<Collider>().enabled = false; 
-        _rangePreviewSphere.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.1f); 
+        _rangePreviewSphere.transform.localScale = new Vector3(tourelle.Range * 2, 0.1f, tourelle.Range * 2);
+        _rangePreviewSphere.GetComponent<Collider>().enabled = false;
+        if (rangePreviewMaterial != null)
+        {
+            _rangePreviewSphere.GetComponent<Renderer>().material = rangePreviewMaterial;
+        }
+        else
+        {
+            Debug.LogWarning("Range Preview material is not assigned in GameManager.");
+        }
     }
 
     private void UpdateRangePreview()

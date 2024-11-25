@@ -59,13 +59,16 @@ public class InventoryBuildManager : MonoBehaviour
         }
     }
 
-    public void CreateObjectOnMap(GameObject prefab, Vector3 position)
+    public void CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        GameObject _previewObject = Instantiate(prefab, position, Quaternion.identity);
-        _previewObject.transform.position = new Vector3(position.x, 0f, position.z);
+        GameObject _previewObject = Instantiate(prefab, position, rotation);
         _previewObject.GetComponent<BoxCollider>().enabled = true;
-        _previewObject.GetComponent<Tourelle>().enabled = true;
+        if (_previewObject.TryGetComponent(out Tourelle tourelle))
+        {
+            tourelle.enabled = true;
+        }
     }
+
 
     public void FadeUIElement(float targetAlpha)
     {

@@ -60,34 +60,34 @@ public class MortarController : MonoBehaviour
         if (projectilePrefab == null || firePoint == null || currentTarget == null) return;
 
         Vector3 targetPosition = currentTarget.position;
+        Vector3 flatDirection = new Vector3(targetPosition.x - firePoint.position.x, 0, targetPosition.z - firePoint.position.z);
+        float horizontalDistance = flatDirection.magnitude;
+        float heightDifference = targetPosition.y - firePoint.position.y;
+        float gravity = Mathf.Abs(Physics.gravity.y); 
+        float angleRad = Mathf.Deg2Rad * 45; 
 
-        // Calculate the direction to the target
-        Vector3 directionToTarget = targetPosition - firePoint.position;
+        float velocity = Mathf.Sqrt((gravity * horizontalDistance * horizontalDistance) /
+                                    (2 * (horizontalDistance * Mathf.Tan(angleRad) - heightDifference)));
 
-        // Estimate the time to reach the target based on distance and gravity
-        float distance = directionToTarget.magnitude;
-        float gravity = Physics.gravity.y;
-        float launchAngle = Mathf.Deg2Rad * 45; // Keep it fixed or dynamically calculate
+        float minForce = 0.5f;
+        float maxForce = 2f;
+        float normalizedDistance = Mathf.Clamp01(horizontalDistance / detectionRadius); 
+        float dynamicMultiplier = Mathf.Lerp(minForce, maxForce, normalizedDistance); 
 
-        // Basic physics to compute the necessary velocity
-        float initialVelocity = Mathf.Sqrt(-gravity * distance * distance / (2 * (directionToTarget.y - Mathf.Tan(launchAngle) * distance)));
+        Vector3 velocityVector = flatDirection.normalized * velocity * Mathf.Cos(angleRad);
+        velocityVector.y = velocity * Mathf.Sin(angleRad);
 
-        // Normalize direction and apply velocity
-        Vector3 velocity = directionToTarget.normalized * initialVelocity;
-        velocity.y = initialVelocity * Mathf.Sin(launchAngle); // Adjust the vertical component to counteract gravity
-
-        // Instantiate the projectile
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            rb.useGravity = true;  // Enable gravity for the projectile
-
-            // Apply the calculated velocity
-            rb.linearVelocity = velocity * launchForceMultiplier;
+            rb.useGravity = true;
+            rb.linearVelocity = velocityVector * dynamicMultiplier;
         }
     }
+
+
 
     private void OnDrawGizmosSelected()
     {

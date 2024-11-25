@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Build
   - Floor
+  - Xplosion
+  - Map
   layers:
   - Default
   - TransparentFX

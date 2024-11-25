@@ -31,7 +31,7 @@ public class Tourelle : MonoBehaviour
         {
             Debug.LogWarning("La tourelle n'est pas assignée dans l'inspecteur !");
         }
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
     private void Update()
