@@ -2306,7 +2306,7 @@ MonoBehaviour:
   AttackRadius: 5
   Damage: 50
   AttackCooldown: 2
-  HammerScriptable: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
+  HammerScriptable: {fileID: 11400000, guid: 2ece4eb2727e9024886043abe2344254, type: 2}
   _hitEffectPrefab: {fileID: 5266378106977556716, guid: deddd3541bf66474d8e1aeab8d89a466, type: 3}
   _hitEffectTarget: {fileID: 7462868247753360652}
   _target: {fileID: 7970762634601764739}
@@ -2349,8 +2349,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 6.0385246, z: 2.9902108}
-  m_Center: {x: 0, y: 2.5192623, z: 0.06311953}
+  m_Size: {x: 1, y: 5.619697, z: 2.9902108}
+  m_Center: {x: 0, y: 2.728676, z: 0.06311953}
 --- !u!54 &25650135037090642
 Rigidbody:
   m_ObjectHideFlags: 0
