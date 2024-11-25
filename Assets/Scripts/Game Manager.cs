@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Material GetRangePreviewMaterial()  
+    public Material GetRangePreviewMaterial(bool isValidPlacement)
     {
-        return RedPreview;
+        return isValidPlacement ? GreenPreview : RedPreview;
     }
 
     private void IncreaseEnemyStats(float percentage)

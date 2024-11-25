@@ -107,23 +107,25 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 _rangePreviewSphere.transform.position = newPosition;
             }
-
             RaycastHit hit;
+            bool isValidPlacement = false;
+
             if (Physics.Raycast(ray, out hit, 1000.0f))
             {
-                // Vérifiez si le raycast touche un sol
                 if (hit.collider.CompareTag("Floor"))
                 {
-                    _rangePreviewSphere.GetComponent<Renderer>().material = GameManager.instance.GetRangePreviewMaterial();
+                    isValidPlacement = true; 
                 }
-                else
+                if (hit.collider.CompareTag("Map"))
                 {
-                    // Appliquez un matériau alternatif si vous n'êtes pas sur un sol
-                    _rangePreviewSphere.GetComponent<Renderer>().material = GameManager.instance.GetRangePreviewMaterial(); 
+                    isValidPlacement = false;
                 }
             }
+            Material previewMaterial = GameManager.instance.GetRangePreviewMaterial(isValidPlacement);
+            _rangePreviewSphere.GetComponent<Renderer>().material = previewMaterial;
         }
     }
+
 
     private void TryPlaceObject(PointerEventData eventData)
     {
@@ -139,30 +141,26 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                         ? _previewPrefabToInstantiate.transform.rotation
                         : Quaternion.identity;
                     InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, position, rotation);
-
                     GameManager.instance.Coins -= tourelle.Cost;
                     Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
                 }
-                else
+                else if(hit.collider.CompareTag("Map"))
                 {
-                    Debug.Log("Impossible de poser le bâtiment ici, ce n'est pas un sol.");
+                    return;
+                }
+
+                if (hit.collider.CompareTag("Build"))
+                {
+                    Debug.Log("meowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
                 }
             }
-            else
-            {
-                Debug.Log("Aucun sol détecté pour poser le bâtiment.");
-            }
-        }
-        else
-        {
-            Debug.Log("Pas assez de pièces pour poser ce bâtiment.");
         }
     }
 
 
     private void CreateRangePreview()
     {
-        Material rangePreviewMaterial = GameManager.instance.GetRangePreviewMaterial();
+        Material rangePreviewMaterial = GameManager.instance.GreenPreview;
         _rangePreviewSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         _rangePreviewSphere.name = "Range Preview Sphere";
         _rangePreviewSphere.transform.localScale = new Vector3(tourelle.Range * 2, 0.1f, tourelle.Range * 2);

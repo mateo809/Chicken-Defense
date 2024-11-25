@@ -2264,11 +2264,11 @@ GameObject:
   - component: {fileID: 5953096469806791974}
   - component: {fileID: 5128284901210605842}
   - component: {fileID: 2131864318970275995}
-  - component: {fileID: 8116782819143440504}
   - component: {fileID: 1704801068494561536}
+  - component: {fileID: 25650135037090642}
   m_Layer: 0
   m_Name: BigHammer
-  m_TagString: Untagged
+  m_TagString: Build
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2330,7 +2330,28 @@ MonoBehaviour:
   enemyTag: Enemy
   Range: 0
   TurnSpeed: 0
---- !u!54 &8116782819143440504
+--- !u!65 &1704801068494561536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7519499908186100243}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 6.0385246, z: 2.9902108}
+  m_Center: {x: 0, y: 2.5192623, z: 0.06311953}
+--- !u!54 &25650135037090642
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2357,27 +2378,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
---- !u!65 &1704801068494561536
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7519499908186100243}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 6.0385246, z: 2.9902108}
-  m_Center: {x: 0, y: 2.5192623, z: 0.06311953}
 --- !u!1 &7661692414338177529
 GameObject:
   m_ObjectHideFlags: 0

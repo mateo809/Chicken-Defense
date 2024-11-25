@@ -2201,7 +2201,7 @@ GameObject:
   - component: {fileID: 8866865625818319583}
   m_Layer: 0
   m_Name: BigCannon
-  m_TagString: Untagged
+  m_TagString: Build
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

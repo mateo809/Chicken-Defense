@@ -293,8 +293,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14964287, y: 0.016983125, z: 0.15551409}
-  m_Center: {x: -0.00919439, y: -0.0064844666, z: 0.008450746}
+  m_Size: {x: 0.14964287, y: 0.015663994, z: 0.15551409}
+  m_Center: {x: -0.00919439, y: -0.0071440474, z: 0.008450746}
 --- !u!1 &90949075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,7 +1780,7 @@ MonoBehaviour:
   _button: {fileID: 1638970474}
   TimeBetweenWaves: 3
   spawnDelay: 0.25
-  Coins: 100000
+  Coins: 250
   WaveNumber: 0
   enemiesRemaining: 0
   RedPreview: {fileID: 2100000, guid: 72518cd09238131478107c684dfb15ee, type: 2}
