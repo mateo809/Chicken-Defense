@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
@@ -7,6 +8,8 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public int damage = 30;
 
     private Transform target;
+
+    [SerializeField] private GameObject _animPlane;
 
     public GameObject prefabToInstantiate; 
     private GameObject previewPrefabToInstantiate; 
@@ -76,23 +79,44 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         Ray ray = Camera.main.ScreenPointToRay(data.position);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000.0f)) 
+        if (Physics.Raycast(ray, out hit, 1000.0f))
         {
-            if (hit.collider) 
+            if (hit.collider)
             {
-                Vector3 position = hit.point; 
+                Vector3 position = hit.point;
                 GameObject placedObject = Instantiate(prefabToInstantiate, position, Quaternion.identity);
+
+                // Trouver le Particle System
                 var particleSystem = placedObject.GetComponentInChildren<ParticleSystem>();
                 if (particleSystem != null)
                 {
-                    Destroy(previewPrefabToInstantiate);
-                    //HitTarget();
-                    particleSystem.Play(); 
+                    Destroy(previewPrefabToInstantiate); // Supprimer la prévisualisation
+                    particleSystem.Play(); // Jouer le Particle System
+                    _animPlane.gameObject.SetActive(true); // Activer l'animation du Plane
+
+                    // Démarrer une coroutine pour désactiver _animPlane après la durée des particules
+                    StartCoroutine(DisableAnimPlaneAfterParticles(particleSystem));
                 }
-                Destroy(placedObject, 4f);
+
+                Destroy(placedObject, 4f); // Détruire l'objet après 4 secondes (ou ajustez cette valeur)
             }
         }
     }
+
+    private IEnumerator DisableAnimPlaneAfterParticles(ParticleSystem particleSystem)
+    {
+        if (particleSystem == null) yield break;
+
+        // Obtenez la durée totale des particules (inclut la durée et le temps de vie)
+        float particleDuration = particleSystem.main.duration + particleSystem.main.startLifetime.constantMax;
+
+        // Attendre la fin de l'animation
+        yield return new WaitForSeconds(particleDuration);
+
+        // Désactiver _animPlane
+        _animPlane.gameObject.SetActive(false);
+    }
+
 
     private void CreateRangePreview()
     {
