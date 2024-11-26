@@ -22,6 +22,15 @@ public class Hammer : MonoBehaviour
 
     public BoxCollider boxCollider;
 
+    private void Awake()
+    {
+        if (Instance != null)
+        { 
+            Instance = this;      
+        }
+
+    }
+
     private void Start()
     {
         if (HammerScriptable != null)
@@ -41,8 +50,7 @@ public class Hammer : MonoBehaviour
         {
             boxCollider = gameObject.AddComponent<BoxCollider>();
             boxCollider.isTrigger = true;
-            boxCollider.size = new Vector3(AttackRadius * 2, 2f, AttackRadius * 2);
-            boxCollider.enabled = false; 
+            boxCollider.size = new Vector3(AttackRadius * 2, 8f, AttackRadius * 2);
         }
     }
 

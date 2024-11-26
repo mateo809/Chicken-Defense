@@ -36,25 +36,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             _previewPrefabToInstantiate.transform.Rotate(Vector3.up, 90f);  
         }
     }
-
-    public void OpenPanelInfoBuild(PointerEventData data)
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(data.position);
-        if (_buildPlane.Raycast(ray, out float enter))
-        {
-            if(Physics.Raycast(ray, out hit , 1000f))
-            {
-                if (hit.collider.CompareTag("Build"))
-                {
-                    Debug.Log(gameObject.name + "uwu");
-                }
-            }
-        }
-
-
-    }
-
     public void OnBeginDrag(PointerEventData data)
     {
         _originalPanelPosition = _uiElements.transform.localPosition;
@@ -191,6 +172,23 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (_rangePreviewSphere != null && _previewPrefabToInstantiate != null)
         {
             _rangePreviewSphere.transform.position = _previewPrefabToInstantiate.transform.position;
+        }
+    }
+
+    public void OpenPanelInfoBuild(PointerEventData data)
+    {
+        // Effectuer un Raycast depuis la position du pointeur
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(data.position);
+
+        if (Physics.Raycast(ray, out hit, 1000f)) // Effectuer le Raycast
+        {
+            // Vérifier si l'objet touché est un bâtiment valide (par exemple, tagué "Build")
+            if (hit.collider.CompareTag("Build"))
+            {
+                // Afficher un panneau d'information ou effectuer toute action que vous souhaitez
+                Debug.Log("Bâtiment touché: " + hit.collider.gameObject.name);
+            }
         }
     }
 }

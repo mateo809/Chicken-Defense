@@ -59,10 +59,14 @@ public class InventoryBuildManager : MonoBehaviour
         }
     }
 
-    public GameObject CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
+    public void CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        GameObject newObject = Instantiate(prefab, position, rotation);
-        return newObject;  // Assurez-vous que l'objet instancié est retourné
+        GameObject _previewObject = Instantiate(prefab, position, rotation);
+        _previewObject.GetComponent<BoxCollider>().enabled = true;
+        if (_previewObject.TryGetComponent(out Tourelle tourelle))
+        {
+            tourelle.enabled = true;
+        }
     }
 
 

@@ -2259,6 +2259,7 @@ MonoBehaviour:
   partToRotate: {fileID: 4321680010222119645}
   tourelle: {fileID: 11400000, guid: 57ddae741f140dc4e9f8f3f4c8813635, type: 2}
   projectilePrefab: {fileID: 3857996308684079843, guid: 5a142c54672ac2949abc0a6b554c9105, type: 3}
+  ParticuleShoot: {fileID: 1546897667432260974, guid: 9e8fbbdbe7487924fb7c07a7087dfc20, type: 3}
   firePoint: {fileID: 2722871749424043922}
   enemyTag: Enemy
   Range: 10

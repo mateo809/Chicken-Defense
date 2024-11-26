@@ -8,7 +8,8 @@ public class Tourelle : MonoBehaviour
     private Enemy enemy;
     public BuildingScriptableObject tourelle;
 
-    public GameObject projectilePrefab; 
+    public GameObject projectilePrefab;
+    public GameObject ParticuleShoot;
     public Transform firePoint; 
 
     public string enemyTag = "Enemy"; 
@@ -104,12 +105,14 @@ public class Tourelle : MonoBehaviour
 
         // Instancier le projectile et l'orienter vers la cible
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        GameObject particule = Instantiate(ParticuleShoot , firePoint.position, firePoint.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         if (projectile != null)
         {
             projectile.Seek(target);  
             if (tourelle != null)
             {
+                Destroy(particule , 1f);
                 projectile.damage = tourelle.Damage;  
             }
         }
