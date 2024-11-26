@@ -3,21 +3,25 @@ using System.Collections;
 
 public class Hammer : MonoBehaviour
 {
+    public static Hammer Instance;  
     [Header("Hammer Settings")]
-    public float AttackRadius = 5f;           
-    public float Damage = 50f;                
+    public float AttackRadius = 5f;
+    public float Damage = 50f;
     public float AttackCooldown = 2f;
     public BuildingScriptableObject HammerScriptable;
     [SerializeField] private GameObject _hitEffectPrefab;
     [SerializeField] private GameObject _hitEffectTarget;
     [SerializeField] private GameObject _target;
 
-    public GameObject objectToRotate;        
+    public GameObject objectToRotate;
 
-    private float _nextAttackTime = 0f;        
-    private bool _isAttacking = false;        
-    private Quaternion _originalRotation;      
-    private float _attackDuration = 0.5f;      
+    private float _nextAttackTime = 0f;
+    private bool _isAttacking = false;
+    private Quaternion _originalRotation;
+    private float _attackDuration = 0.5f;
+
+    public BoxCollider boxCollider;
+
     private void Start()
     {
         if (HammerScriptable != null)
@@ -32,35 +36,47 @@ public class Hammer : MonoBehaviour
             _originalRotation = objectToRotate.transform.rotation;
         }
 
-        BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
-        boxCollider.isTrigger = true;
-        boxCollider.size = new Vector3(AttackRadius * 2, 2f, AttackRadius * 2);
+        boxCollider = gameObject.GetComponent<BoxCollider>();
+        if (boxCollider == null)
+        {
+            boxCollider = gameObject.AddComponent<BoxCollider>();
+            boxCollider.isTrigger = true;
+            boxCollider.size = new Vector3(AttackRadius * 2, 2f, AttackRadius * 2);
+            boxCollider.enabled = false; 
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && !_isAttacking && Time.time >= _nextAttackTime)
         {
-            // Lancer l'attaque
             Attack();
         }
     }
 
     private void Attack()
     {
-        _isAttacking = true;
-        _nextAttackTime = Time.time + AttackCooldown; // Définir le prochain temps d'attaque
-
-        // Effet visuel
-        if (_hitEffectPrefab != null)
+        if (!_isAttacking && Time.time >= _nextAttackTime)
         {
-            Instantiate(_hitEffectPrefab, _hitEffectTarget.transform.position, Quaternion.identity);
+            _isAttacking = true;
+            _nextAttackTime = Time.time + AttackCooldown; 
+            EnableCollider();
+            if (_hitEffectPrefab != null)
+            {
+                Instantiate(_hitEffectPrefab, _hitEffectTarget.transform.position, Quaternion.identity);
+            }
+            if (objectToRotate != null)
+            {
+                StartCoroutine(PerformHammerStrike());
+            }
         }
+    }
 
-        // Effectuer le mouvement du marteau
-        if (objectToRotate != null)
+    private void EnableCollider()
+    {
+        if (boxCollider != null && !boxCollider.enabled)
         {
-            StartCoroutine(PerformHammerStrike());
+            boxCollider.enabled = true; 
         }
     }
 
@@ -85,6 +101,7 @@ public class Hammer : MonoBehaviour
             objectToRotate.transform.rotation = targetRotation;
         }
 
+        // Vérifier les ennemis dans le rayon de l'attaque
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, AttackRadius);
         foreach (var enemyCollider in hitEnemies)
         {
@@ -100,12 +117,18 @@ public class Hammer : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
+        // Désactiver le collider après l'attaque
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
+
         if (objectToRotate != null)
         {
             objectToRotate.transform.rotation = _originalRotation;
         }
 
-        _isAttacking = false; 
+        _isAttacking = false;
     }
 
     private void OnDrawGizmosSelected()

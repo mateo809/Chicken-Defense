@@ -293,8 +293,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14964287, y: 0.015510108, z: 0.15551409}
-  m_Center: {x: -0.00919439, y: -0.0072210333, z: 0.008450746}
+  m_Size: {x: 0.14964287, y: 0.015403406, z: 0.15551409}
+  m_Center: {x: -0.00919439, y: -0.007274395, z: 0.008450746}
 --- !u!1 &90949075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1856,7 @@ MonoBehaviour:
   _timer: {fileID: 1843540355}
   _enemyRemaining: {fileID: 1621138263}
   _scorePlayer: {fileID: 1108455914}
+  Gold: {fileID: 2328652593923856779, guid: 13f852dc83e8f594a9bebadcded38725, type: 3}
   _button: {fileID: 1638970474}
   TimeBetweenWaves: 3
   spawnDelay: 0.25
@@ -2608,6 +2609,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9200119237141033959, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -2672,6 +2677,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7577288660700896513, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7029948723529949830, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
       propertyPath: m_TagString
       value: Floor
@@ -2685,10 +2694,11 @@ PrefabInstance:
       value: map (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8578433623609224457, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: c205b751d4631b243987c87df1c3dab5, type: 3}
-      insertIndex: 92
+      insertIndex: 91
       addedObject: {fileID: 1438360089}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -5635648308888094064, guid: c205b751d4631b243987c87df1c3dab5, type: 3}

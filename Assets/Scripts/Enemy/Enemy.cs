@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,12 +16,12 @@ public class Enemy : MonoBehaviour
         if (enemyType != null)
         {
             currentHealth = enemyType.health;
-            transform.name = enemyType.enemyName;  
+            transform.name = enemyType.enemyName;
         }
     }
     public void SetTourelle(Tourelle newTourelle)
     {
-        tourelle = newTourelle;  
+        tourelle = newTourelle;
     }
 
     public void TakeDamage(int damage)
@@ -42,9 +43,17 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        StartCoroutine(SpawnGold());
         GameManager.instance.Score += 5;
         GameManager.instance.Coins += enemyType.Coins;
         GameManager.instance.enemiesRemaining--;
-        Destroy(gameObject); 
+        Destroy(gameObject);
+    }
+
+    public IEnumerator SpawnGold()
+    {
+        GameObject go = Instantiate(GameManager.instance.Gold, transform.position, transform.rotation);
+        Destroy(go, 2f);
+        yield return null;
     }
 }

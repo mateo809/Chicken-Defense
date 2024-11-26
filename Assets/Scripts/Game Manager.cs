@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
     [SerializeField] private TextMeshProUGUI _scorePlayer;
 
+    public GameObject Gold;
+
     public GameObject _button;
 
     public float TimeBetweenWaves = 0f;

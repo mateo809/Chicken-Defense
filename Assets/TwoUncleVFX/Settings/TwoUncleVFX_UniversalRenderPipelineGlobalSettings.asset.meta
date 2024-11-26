@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eecaaf389340a6942bed30b6c6fbc84b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 302106
+  packageName: VFX Graph - Fire Ball 02
+  packageVersion: 1.0
+  assetPath: Assets/TwoUncleVFX/Settings/TwoUncleVFX_UniversalRenderPipelineGlobalSettings.asset
+  uploadId: 707322
