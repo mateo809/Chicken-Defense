@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718b7916b0e854f4cabe916c894ee932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partToRotate: {fileID: 6104506812407701511}
+  partToRotate: {fileID: 779013833468757746}
   tourelle: {fileID: 0}
   projectilePrefab: {fileID: 0}
   firePoint: {fileID: 0}
@@ -1688,7 +1688,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5266378106977556716, guid: 12f0efbd90f868643b73005b9db32a84, type: 3}
   firePoint: {fileID: 222042138700566658}
   firingInterval: 5
-  rotationSpeed: 0
+  rotationSpeed: 5
   launchForceMultiplier: 1
   detectionRadius: 40
   targetLayer:

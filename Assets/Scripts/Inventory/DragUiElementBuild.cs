@@ -37,6 +37,24 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
     }
 
+    public void OpenPanelInfoBuild(PointerEventData data)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(data.position);
+        if (_buildPlane.Raycast(ray, out float enter))
+        {
+            if(Physics.Raycast(ray, out hit , 1000f))
+            {
+                if (hit.collider.CompareTag("Build"))
+                {
+                    Debug.Log(gameObject.name + "uwu");
+                }
+            }
+        }
+
+
+    }
+
     public void OnBeginDrag(PointerEventData data)
     {
         _originalPanelPosition = _uiElements.transform.localPosition;
@@ -54,7 +72,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             }
             CreateRangePreview();
         }
-
         _buildPlane = new Plane(Vector3.up, Vector3.zero);
         InventoryBuildManager.Instance.FadeUIElement(0f);
     }
@@ -148,15 +165,9 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                 {
                     return;
                 }
-
-                if (hit.collider.CompareTag("Build"))
-                {
-                    Debug.Log("meowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-                }
             }
         }
     }
-
 
     private void CreateRangePreview()
     {

@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        GameManager.instance.Score += 5;
         GameManager.instance.Coins += enemyType.Coins;
         GameManager.instance.enemiesRemaining--;
         Destroy(gameObject); 

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coins;
     [SerializeField] private TextMeshProUGUI _timer;
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
+    [SerializeField] private TextMeshProUGUI _scorePlayer;
 
     public GameObject _button;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     public int Coins = 0;
     public int WaveNumber = 0;
     public int enemiesRemaining = 0;
+    public int Score = 0;
 
     public Material RedPreview;
     public Material GreenPreview;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
 
             if (_countdown <= 0)
             {
+                Score += 50;
                 StartCoroutine(SpawnWave());
             }
         }
@@ -101,6 +104,7 @@ public class GameManager : MonoBehaviour
         _coins.text = Coins.ToString();
         _wave.text = "Wave : " + WaveNumber.ToString();
         _enemyRemaining.text = enemiesRemaining.ToString();
+        _scorePlayer.text = Score.ToString();
         if (waveInProgress || enemiesRemaining > 0)
         {
             _timer.text = "In Progress";
