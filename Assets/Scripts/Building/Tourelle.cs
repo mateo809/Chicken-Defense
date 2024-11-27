@@ -106,8 +106,6 @@ public class Tourelle : MonoBehaviour
         {
             return;
         }
-
-        // Instancier le projectile et l'orienter vers la cible
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         GameObject particule = Instantiate(ParticuleShoot, firePoint.position, firePoint.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();

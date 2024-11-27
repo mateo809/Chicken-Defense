@@ -14,7 +14,7 @@ public class UpgradeBuild : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private Button upgradeButton;
 
-    private BuildingComponent selectedBuilding; 
+    private BuildingComponent selectedBuilding;
 
     private void Start()
     {
@@ -44,8 +44,13 @@ public class UpgradeBuild : MonoBehaviour
                 {
                     if (selectedBuilding != buildingComponent)
                     {
-                        selectedBuilding = buildingComponent; 
-                        LoadBuildingData(selectedBuilding.buildingData);
+                        selectedBuilding = buildingComponent;
+                        if (selectedBuilding.instanceData == null)
+                        {
+                            selectedBuilding.instanceData = new BuildingInstanceData(selectedBuilding.buildingData);
+                        }
+
+                        LoadBuildingData(selectedBuilding.instanceData);
                         infoPanel.SetActive(true);
                     }
                 }
@@ -53,39 +58,39 @@ public class UpgradeBuild : MonoBehaviour
         }
     }
 
-    private void LoadBuildingData(BuildingScriptableObject buildingData)
+    private void LoadBuildingData(BuildingInstanceData instanceData)
     {
-        if (buildingData != null)
+        if (instanceData != null)
         {
-            buildNameText.text = $"Name: {buildingData.BuildName} (Lvl {buildingData.Level})";
-            buildingImage.sprite = buildingData.sprite;
-            costText.text = $"Cost: {buildingData.Cost} Gold";
-            attackSpeedText.text = $"Attack Speed: {buildingData.Attackspeed:F2}";
-            damageText.text = $"Damage: {buildingData.Damage}";
-            rangeText.text = $"Range: {buildingData.Range:F2}";
-            upgradeButton.interactable = GameManager.instance.Coins >= buildingData.Cost;
+            buildNameText.text = $"Name: {instanceData.BuildName} (Lvl {instanceData.Level})";
+            buildingImage.sprite = instanceData.sprite;
+            costText.text = $"Cost: {instanceData.Cost} Gold";
+            attackSpeedText.text = $"Attack Speed: {instanceData.Attackspeed:F2}";
+            damageText.text = $"Damage: {instanceData.Damage}";
+            rangeText.text = $"Range: {instanceData.Range:F2}";
+            upgradeButton.interactable = GameManager.instance.Coins >= instanceData.Cost;
         }
     }
 
     private void UpgradeBuilding()
     {
-        if (selectedBuilding == null || selectedBuilding.buildingData == null) return;
+        if (selectedBuilding == null || selectedBuilding.instanceData == null) return;
 
-        BuildingScriptableObject buildingData = selectedBuilding.buildingData;
+        BuildingInstanceData instanceData = selectedBuilding.instanceData;
 
-        if (GameManager.instance.Coins >= buildingData.Cost)
+        if (GameManager.instance.Coins >= instanceData.Cost)
         {
-            GameManager.instance.Coins -= buildingData.Cost;
+            GameManager.instance.Coins -= instanceData.Cost;
 
-            buildingData.Level++;
-            buildingData.Cost += buildingData.Cost * buildingData.Level;
-            buildingData.Attackspeed *= 0.9f; 
-            buildingData.Damage += 10; 
-            buildingData.Range += 0.5f; 
+            instanceData.Level++;
+            instanceData.Cost += instanceData.Cost * instanceData.Level;
+            instanceData.Attackspeed *= 0.9f;
+            instanceData.Damage += 10;
+            instanceData.Range += 0.5f;
 
-            Debug.Log($"Building {selectedBuilding.buildingID} upgraded to level {buildingData.Level}");
+            Debug.Log($"Building {selectedBuilding.buildingID} upgraded to level {instanceData.Level}");
 
-            LoadBuildingData(buildingData);
+            LoadBuildingData(instanceData);
         }
         else
         {
@@ -93,3 +98,4 @@ public class UpgradeBuild : MonoBehaviour
         }
     }
 }
+

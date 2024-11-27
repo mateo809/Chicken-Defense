@@ -3425,9 +3425,9 @@ MonoBehaviour:
   _InstructionMissile: {fileID: 1959495689}
   Gold: {fileID: 2328652593923856779, guid: 13f852dc83e8f594a9bebadcded38725, type: 3}
   _button: {fileID: 1638970474}
-  TimeBetweenWaves: 3
+  TimeBetweenWaves: 10
   spawnDelay: 0.25
-  Coins: 2147483647
+  Coins: 1500
   WaveNumber: 0
   enemiesRemaining: 0
   Score: 0
