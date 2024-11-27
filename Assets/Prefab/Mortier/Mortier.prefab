@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: -4612052342628807732}
   - component: {fileID: 8884545907616468105}
   - component: {fileID: 5316047311137693730}
+  - component: {fileID: -707494514012233089}
   m_Layer: 0
   m_Name: Mortier
   m_TagString: Build
@@ -503,7 +504,21 @@ MonoBehaviour:
   partToRotate: {fileID: 2407370214101275741}
   tourelle: {fileID: 0}
   projectilePrefab: {fileID: 0}
+  ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
   enemyTag: Enemy
   Range: 15
   TurnSpeed: 20
+--- !u!114 &-707494514012233089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400530283230361436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 3bed09feffa94f44e982614cdcc25810, type: 2}

@@ -1,76 +1,123 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
 
 public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public int damage = 30;
+    private Transform _target;
 
-    private Transform target;
-
-    [SerializeField] private GameObject _animPlane;
-
-    public GameObject prefabToInstantiate; 
-    private GameObject previewPrefabToInstantiate; 
-    private Plane buildPlane;
+    [SerializeField] private GameObject _animPlane; 
+    [SerializeField] private GameObject _prefabToInstantiate; 
+    private GameObject _previewPrefabToInstantiate;
+    private Plane _buildPlane;
     private GameObject _rangePreviewSphere;
 
-    private Vector3 originalPointerPosition; 
+    private Vector3 originalPointerPosition;
+
+    [SerializeField] private GameObject _ClickablePanel; 
+    [SerializeField] private TextMeshProUGUI _cooldownText; 
+
+    [SerializeField] private float _cooldownTime = 15.0f; 
+    private float _lastUseTime = -Mathf.Infinity;
 
     void Start()
     {
-        buildPlane = new Plane(Vector3.up, Vector3.zero); 
+
+        _buildPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (_ClickablePanel != null) _ClickablePanel.SetActive(false);
+        if (_cooldownText != null) _cooldownText.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        float cooldownRemaining = Mathf.Max(0, _cooldownTime - (Time.time - _lastUseTime));
+
+        if (_cooldownText != null)
+        {
+            _cooldownText.text = cooldownRemaining > 0
+                ? cooldownRemaining.ToString("F1") + "s"
+                : "Ready!";
+        }
+
+        if (_ClickablePanel != null && cooldownRemaining <= 0)
+        {
+            _ClickablePanel.SetActive(false);
+            if (_cooldownText != null) _cooldownText.gameObject.SetActive(false);
+        }
     }
 
     public void OnBeginDrag(PointerEventData data)
     {
-
-        if (prefabToInstantiate != null)
+        if (Time.time - _lastUseTime < _cooldownTime)
         {
-            previewPrefabToInstantiate = Instantiate(prefabToInstantiate);
-            previewPrefabToInstantiate.name = "Preview " + prefabToInstantiate.name;
+            if (_ClickablePanel != null) _ClickablePanel.SetActive(true);
+            if (_cooldownText != null) _cooldownText.gameObject.SetActive(true);
+            Debug.Log("Action is on cooldown!");
+            return;
+        }
 
-            if (previewPrefabToInstantiate.TryGetComponent(out Collider collider))
+        if (_prefabToInstantiate != null)
+        {
+            if (_ClickablePanel != null) _ClickablePanel.SetActive(false);
+            if (_cooldownText != null) _cooldownText.gameObject.SetActive(false);
+
+            _previewPrefabToInstantiate = Instantiate(_prefabToInstantiate);
+            _previewPrefabToInstantiate.name = "Preview " + _prefabToInstantiate.name;
+
+            if (_previewPrefabToInstantiate.TryGetComponent(out Collider collider))
             {
-                collider.enabled = false; 
+                collider.enabled = false;
             }
 
-            var particleSystem = previewPrefabToInstantiate.GetComponentInChildren<ParticleSystem>();
+            var particleSystem = _previewPrefabToInstantiate.GetComponentInChildren<ParticleSystem>();
             if (particleSystem != null)
             {
-                // Ajuster la durée du Particle System
-                var mainModule = particleSystem.main;
-                // Simuler jusqu'à une progression précise (par exemple, la moitié de sa durée)
-                particleSystem.Simulate(3.9f, true, true); // Simule 0.25 secondes
-                particleSystem.Pause(); // Mettre en pause pour geler l'animation
+                particleSystem.Simulate(3.9f, true, true);
+                particleSystem.Pause();
             }
         }
     }
+
     public void OnDrag(PointerEventData data)
     {
-        if (previewPrefabToInstantiate != null)
+        if (_previewPrefabToInstantiate != null)
         {
+            GameManager.instance._InstructionMissile.gameObject.SetActive(true);
             UpdatePreviewPosition(data);
         }
     }
+
     public void OnEndDrag(PointerEventData data)
     {
-        if (previewPrefabToInstantiate != null)
+        if (Time.time - _lastUseTime < _cooldownTime)
         {
-            PlaceObject(data); 
-            Destroy(previewPrefabToInstantiate); 
+            Debug.Log("Action is on cooldown!");
+            return;
+        }
+        if (_previewPrefabToInstantiate != null)
+        {
+            PlaceObject(data);
+            Destroy(_previewPrefabToInstantiate);
+            GameManager.instance._InstructionMissile.gameObject.SetActive(false);
+            _lastUseTime = Time.time;
+
+            if (_ClickablePanel != null) _ClickablePanel.SetActive(true);
+            if (_cooldownText != null) _cooldownText.gameObject.SetActive(true);
         }
     }
+
     private void UpdatePreviewPosition(PointerEventData data)
     {
         Ray ray = Camera.main.ScreenPointToRay(data.position);
         float enter = 0;
 
-        if (buildPlane.Raycast(ray, out enter)) 
+        if (_buildPlane.Raycast(ray, out enter))
         {
-            Vector3 newPosition = ray.GetPoint(enter); 
-            previewPrefabToInstantiate.transform.position = newPosition;
+            Vector3 newPosition = ray.GetPoint(enter);
+            _previewPrefabToInstantiate.transform.position = newPosition;
         }
     }
 
@@ -84,21 +131,30 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             if (hit.collider)
             {
                 Vector3 position = hit.point;
-                GameObject placedObject = Instantiate(prefabToInstantiate, position, Quaternion.identity);
-
-                // Trouver le Particle System
-                var particleSystem = placedObject.GetComponentInChildren<ParticleSystem>();
-                if (particleSystem != null)
+                if (_prefabToInstantiate != null)
                 {
-                    Destroy(previewPrefabToInstantiate); // Supprimer la prévisualisation
-                    particleSystem.Play(); // Jouer le Particle System
-                    _animPlane.gameObject.SetActive(true); // Activer l'animation du Plane
+                    GameObject placedObject = Instantiate(_prefabToInstantiate, position, Quaternion.identity);
+                    SphereCollider sphereCollider = placedObject.GetComponent<SphereCollider>();
+                    if (sphereCollider != null)
+                    {
+                        sphereCollider.isTrigger = true; 
+                    }
 
-                    // Démarrer une coroutine pour désactiver _animPlane après la durée des particules
-                    StartCoroutine(DisableAnimPlaneAfterParticles(particleSystem));
+                    var particleSystem = placedObject.GetComponentInChildren<ParticleSystem>();
+                    if (particleSystem != null)
+                    {
+                        _animPlane.gameObject.SetActive(true);
+                        Destroy(_previewPrefabToInstantiate);
+                        particleSystem.Play();
+
+                        if (_animPlane != null)
+                        {
+                            StartCoroutine(DisableAnimPlaneAfterParticles(particleSystem));
+                        }
+                    }
+
+                    Destroy(placedObject, 4f); 
                 }
-
-                Destroy(placedObject, 4f); // Détruire l'objet après 4 secondes (ou ajustez cette valeur)
             }
         }
     }
@@ -106,43 +162,20 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private IEnumerator DisableAnimPlaneAfterParticles(ParticleSystem particleSystem)
     {
         if (particleSystem == null) yield break;
-
-        // Obtenez la durée totale des particules (inclut la durée et le temps de vie)
         float particleDuration = particleSystem.main.duration + particleSystem.main.startLifetime.constantMax;
-
-        // Attendre la fin de l'animation
         yield return new WaitForSeconds(particleDuration);
-
-        // Désactiver _animPlane
-        _animPlane.gameObject.SetActive(false);
+        if (_animPlane != null) _animPlane.gameObject.SetActive(false);
     }
 
-
-    private void CreateRangePreview()
+    private void OnTriggerEnter(Collider other)
     {
-        Material rangePreviewMaterial = GameManager.instance.GreenPreview;
-        _rangePreviewSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _rangePreviewSphere.name = "Range Preview Sphere";
-        _rangePreviewSphere.transform.localScale = new Vector3(15, 0.1f, 15);
-        _rangePreviewSphere.GetComponent<Collider>().enabled = false;
-        if (rangePreviewMaterial != null)
+        if (other.CompareTag("Enemy"))
         {
-            _rangePreviewSphere.GetComponent<Renderer>().material = rangePreviewMaterial;
-        }
-        else
-        {
-            Debug.LogWarning("Range Preview material is not assigned in GameManager.");
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
         }
     }
-
-    //void HitTarget()
-    //{
-    //    Enemy enemy = target.GetComponent<Enemy>();
-    //    if (enemy != null)
-    //    {
-    //        enemy.TakeDamage(damage);
-    //    }
-
-    //    Destroy(gameObject);
-    //}
 }

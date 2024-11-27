@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private EnemyTypeScriptableObject[] enemyTypes;  
+    [SerializeField] private EnemyTypeScriptableObject[] enemyTypes;
 
     [SerializeField] private Transform _spawner;
     [SerializeField] private TextMeshProUGUI _wave;
@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timer;
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
     [SerializeField] private TextMeshProUGUI _scorePlayer;
+
+
+    public TextMeshProUGUI _InstructionRota;
+    public TextMeshProUGUI _InstructionMissile;
 
     public GameObject Gold;
 
@@ -34,6 +38,10 @@ public class GameManager : MonoBehaviour
     public Material GreenPreview;
 
     private bool waveInProgress = false;
+
+    public GameObject IAObjectPrefab;  
+    public float aiSpawnInterval = 45f; 
+    private float aiSpawnTimer = 0f;  
 
     private void Awake()
     {
@@ -61,6 +69,13 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(SpawnWave());
             }
         }
+        aiSpawnTimer += Time.deltaTime;
+        if (aiSpawnTimer >= aiSpawnInterval)
+        {
+            aiSpawnTimer = 0f;
+            SpawnAI(); 
+        }
+
         UpdateUI();
         Debug.Log(enemiesRemaining);
     }
@@ -73,7 +88,7 @@ public class GameManager : MonoBehaviour
 
         if (WaveNumber % 5 == 0)
         {
-            IncreaseEnemyStats(0.25f); 
+            IncreaseEnemyStats(0.25f);
         }
 
         int enemiesToSpawn = WaveNumber * 10;
@@ -87,7 +102,6 @@ public class GameManager : MonoBehaviour
 
         waveInProgress = false;
     }
-
 
     public void SpawnEnemy()
     {
@@ -113,7 +127,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _timer.text =  Mathf.Ceil(_countdown).ToString();
+            _timer.text = Mathf.Ceil(_countdown).ToString();
         }
     }
 
@@ -133,4 +147,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Enemy stats increased by " + (percentage * 100) + "% for wave " + WaveNumber);
     }
 
+    public void SpawnAI()
+    {
+        if (IAObjectPrefab != null)
+        {
+            Instantiate(IAObjectPrefab, _spawner.position, Quaternion.identity);
+            Debug.Log("IA spawn!");
+        }
+    }
 }

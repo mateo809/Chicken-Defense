@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 2651682230675070158}
   - component: {fileID: 2478349620826206390}
   - component: {fileID: -1686915633999384829}
+  - component: {fileID: -7650147938338855404}
   m_Layer: 0
   m_Name: Canon
   m_TagString: Build
@@ -582,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 1565216561110364025}
   tourelle: {fileID: 11400000, guid: 93f04ec75c80b6749a79717ec42f6625, type: 2}
-  projectilePrefab: {fileID: 3857996308684079843, guid: 5a142c54672ac2949abc0a6b554c9105, type: 3}
+  projectilePrefab: {fileID: 2994985458253796513, guid: 560d45a46e3c5a44eb915ac6e4ed1396, type: 3}
   ParticuleShoot: {fileID: 1546897667432260974, guid: 9e8fbbdbe7487924fb7c07a7087dfc20, type: 3}
   firePoint: {fileID: 8361779799126798802}
   enemyTag: Enemy
@@ -636,3 +637,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!114 &-7650147938338855404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786134068258369711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingID: 0
+  buildingData: {fileID: 11400000, guid: 93f04ec75c80b6749a79717ec42f6625, type: 2}

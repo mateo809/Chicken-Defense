@@ -6,18 +6,20 @@ public class Tourelle : MonoBehaviour
     public Transform partToRotate;
 
     private Enemy enemy;
-    public BuildingScriptableObject tourelle;
+    public BuildingScriptableObject tourelle; 
+
+    private BuildingScriptableObject tourelleCopy; 
 
     public GameObject projectilePrefab;
     public GameObject ParticuleShoot;
-    public Transform firePoint; 
+    public Transform firePoint;
 
-    public string enemyTag = "Enemy"; 
+    public string enemyTag = "Enemy";
 
-    public float Range = 15f; 
-    public float TurnSpeed = 20f; 
-    private float attackCooldown = 0f; 
-    private float attackSpeed; 
+    public float Range = 15f;
+    public float TurnSpeed = 20f;
+    private float attackCooldown = 0f;
+    private float attackSpeed;
 
     public object buildingScriptable { get; private set; }
 
@@ -25,13 +27,15 @@ public class Tourelle : MonoBehaviour
     {
         if (tourelle != null)
         {
-            attackSpeed = tourelle.Attackspeed;
-            Range = tourelle.Range;
+            tourelleCopy = Instantiate(tourelle); 
+            attackSpeed = tourelleCopy.Attackspeed;
+            Range = tourelleCopy.Range;
         }
         else
         {
             Debug.LogWarning("La tourelle n'est pas assignée dans l'inspecteur !");
         }
+
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
@@ -49,17 +53,17 @@ public class Tourelle : MonoBehaviour
 
         if (attackCooldown <= 0f)
         {
-            if (tourelle != null && enemy != null)
+            if (tourelleCopy != null && enemy != null)
             {
                 Shoot();
-                attackCooldown = attackSpeed; 
-                int damage = tourelle.Damage;
+                attackCooldown = attackSpeed;
+                int damage = tourelleCopy.Damage;
                 enemy.TakeDamage(damage);
             }
         }
         else
         {
-            attackCooldown -= Time.deltaTime;  
+            attackCooldown -= Time.deltaTime;
         }
     }
 
@@ -83,11 +87,11 @@ public class Tourelle : MonoBehaviour
         {
             target = nearestEnemy.transform;
             enemy = nearestEnemy.GetComponent<Enemy>();
-            enemy.SetTourelle(this);  
+            enemy.SetTourelle(this);
         }
         else
         {
-            target = null;  
+            target = null;
         }
     }
 
@@ -105,16 +109,28 @@ public class Tourelle : MonoBehaviour
 
         // Instancier le projectile et l'orienter vers la cible
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        GameObject particule = Instantiate(ParticuleShoot , firePoint.position, firePoint.rotation);
+        GameObject particule = Instantiate(ParticuleShoot, firePoint.position, firePoint.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         if (projectile != null)
         {
-            projectile.Seek(target);  
-            if (tourelle != null)
+            projectile.Seek(target);
+            if (tourelleCopy != null)
             {
-                Destroy(particule , 1f);
-                projectile.damage = tourelle.Damage;  
+                Destroy(particule, 1f);
+                projectile.damage = tourelleCopy.Damage;
             }
         }
+    }
+
+    public void AmeliorerTourelle()
+    {
+        if (tourelleCopy != null)
+        {
+            tourelleCopy.Damage += 10;  
+            tourelleCopy.Attackspeed -= 0.5f;  
+            tourelleCopy.Range += 5; 
+        }
+        attackSpeed = tourelleCopy.Attackspeed;
+        Range = tourelleCopy.Range;
     }
 }

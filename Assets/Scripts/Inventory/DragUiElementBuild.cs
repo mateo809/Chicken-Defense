@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -60,6 +61,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
     public void OnDrag(PointerEventData data)
     {
         InventoryBuildManager.Instance.TrashAreaGameObject.SetActive(true);
+        GameManager.instance._InstructionRota.gameObject.SetActive(true);
         if (_isOverTrash) return;
 
         if (_previewPrefabToInstantiate != null)
@@ -72,7 +74,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         InventoryBuildManager.Instance.TrashAreaGameObject.SetActive(false);
-
+        GameManager.instance._InstructionRota.gameObject.SetActive(false);
         if (_isOverTrash && _previewPrefabToInstantiate != null)
         {
             Destroy(_previewPrefabToInstantiate);
@@ -172,23 +174,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (_rangePreviewSphere != null && _previewPrefabToInstantiate != null)
         {
             _rangePreviewSphere.transform.position = _previewPrefabToInstantiate.transform.position;
-        }
-    }
-
-    public void OpenPanelInfoBuild(PointerEventData data)
-    {
-        // Effectuer un Raycast depuis la position du pointeur
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(data.position);
-
-        if (Physics.Raycast(ray, out hit, 1000f)) // Effectuer le Raycast
-        {
-            // Vérifier si l'objet touché est un bâtiment valide (par exemple, tagué "Build")
-            if (hit.collider.CompareTag("Build"))
-            {
-                // Afficher un panneau d'information ou effectuer toute action que vous souhaitez
-                Debug.Log("Bâtiment touché: " + hit.collider.gameObject.name);
-            }
         }
     }
 }

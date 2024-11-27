@@ -29,6 +29,11 @@ public class BaseScript : MonoBehaviour
         GameManager.instance.Score -= 30;
         LifeSlider.GetComponent<Slider>().value -= 30;
         yield return null;
+
+        if(GameManager.instance.Score < 0)
+        {
+            GameManager.instance.Score = 0;
+        }
     }
 
     public void Dead()

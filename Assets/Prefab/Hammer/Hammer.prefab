@@ -440,7 +440,7 @@ Transform:
   m_GameObject: {fileID: 3771014247449180013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.7, z: -0.79}
+  m_LocalPosition: {x: 0.07, y: 3.3, z: 10.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -618,6 +618,8 @@ GameObject:
   - component: {fileID: 3697221446856969594}
   - component: {fileID: 1756166035938844725}
   - component: {fileID: -5646882535388935749}
+  - component: {fileID: 7084375242877474190}
+  - component: {fileID: 987005746282647958}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Build
@@ -663,7 +665,10 @@ MonoBehaviour:
   _hitEffectPrefab: {fileID: 5266378106977556716, guid: deddd3541bf66474d8e1aeab8d89a466, type: 3}
   _hitEffectTarget: {fileID: 7022838863861601793}
   _target: {fileID: 3771014247449180013}
+  _targetEffects: {fileID: 2807250489568399051}
   objectToRotate: {fileID: 1537313107114189820}
+  boxCollider: {fileID: 0}
+  ColliderOffset: {x: 0, y: 0, z: 2}
 --- !u!114 &1756166035938844725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +684,7 @@ MonoBehaviour:
   partToRotate: {fileID: 7239950239324363296}
   tourelle: {fileID: 0}
   projectilePrefab: {fileID: 0}
+  ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
   enemyTag: Enemy
   Range: 0
@@ -710,6 +716,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!65 &7084375242877474190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310280978019483684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &987005746282647958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310280978019483684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
 --- !u!1 &7022838863861601793
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de6e455c8bc8b9478ee1c915c38ffe8, type: 3}
   m_Name: Canon a plumes
   m_EditorClassIdentifier: 
-  Cost: 120
+  Level: 0
+  Cost: 150
   sprite: {fileID: 21300000, guid: 6ca4fbb643d1d7148a03e009115eed38, type: 3}
   BuildName: Canon a plumes
   Attackspeed: 1
-  Damage: 30
-  Range: 20
+  Damage: 20
+  Range: 15
   BuildPrefab: {fileID: 8786134068258369711, guid: 5999b0da53b5e024cbe19b09baa3a380, type: 3}

@@ -17,4 +17,4 @@ MonoBehaviour:
   speed: 15
   health: 150
   damage: 8
-  enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}
+  enemyPrefab: {fileID: 3871324095154313045, guid: 74c378865e2935643a3c99ed128839af, type: 3}

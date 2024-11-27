@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Xplosion
   - Map
+  - Poule
   layers:
   - Default
   - TransparentFX

@@ -1630,6 +1630,7 @@ GameObject:
   - component: {fileID: 8831310173831132295}
   - component: {fileID: 3121776221231097710}
   - component: {fileID: 7808756819897801908}
+  - component: {fileID: 8939755938539307714}
   m_Layer: 0
   m_Name: BigMortier
   m_TagString: Build
@@ -1669,6 +1670,7 @@ MonoBehaviour:
   partToRotate: {fileID: 779013833468757746}
   tourelle: {fileID: 0}
   projectilePrefab: {fileID: 0}
+  ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
   enemyTag: Enemy
   Range: 0
@@ -1713,8 +1715,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6362824, y: 7.6896973, z: 1.47999}
-  m_Center: {x: 0.021063726, y: 3.3448486, z: 0.019977173}
+  m_Size: {x: 3.527082, y: 7.6896973, z: 1.6609166}
+  m_Center: {x: -0.07423782, y: 3.3448486, z: 0.014971813}
+--- !u!114 &8939755938539307714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5823885351803754606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: bbc05a9976adf114b9704ac63db31152, type: 2}
 --- !u!1 &6119052856467817321
 GameObject:
   m_ObjectHideFlags: 0

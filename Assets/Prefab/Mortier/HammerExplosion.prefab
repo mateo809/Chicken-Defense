@@ -5112,6 +5112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeecf3568974de54ba423dc95520bc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 3
+  explosionRadius: 8
   lifetime: 0.1
   damage: 0

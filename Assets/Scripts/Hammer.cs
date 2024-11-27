@@ -12,6 +12,7 @@ public class Hammer : MonoBehaviour
     [SerializeField] private GameObject _hitEffectPrefab;
     [SerializeField] private GameObject _hitEffectTarget;
     [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject _targetEffects;
 
     public GameObject objectToRotate;
 
@@ -21,6 +22,7 @@ public class Hammer : MonoBehaviour
     private float _attackDuration = 0.5f;
 
     public BoxCollider boxCollider;
+    public Vector3 ColliderOffset = new Vector3(0, 5, 5f);
 
     private void Awake()
     {
@@ -46,12 +48,9 @@ public class Hammer : MonoBehaviour
         }
 
         boxCollider = gameObject.GetComponent<BoxCollider>();
-        if (boxCollider == null)
-        {
-            boxCollider = gameObject.AddComponent<BoxCollider>();
-            boxCollider.isTrigger = true;
-            boxCollider.size = new Vector3(AttackRadius * 2, 8f, AttackRadius * 2);
-        }
+        boxCollider.isTrigger = true;
+        boxCollider.size = new Vector3(1, 1f, AttackRadius);
+        boxCollider.center = ColliderOffset;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,10 +67,9 @@ public class Hammer : MonoBehaviour
         {
             _isAttacking = true;
             _nextAttackTime = Time.time + AttackCooldown; 
-            EnableCollider();
             if (_hitEffectPrefab != null)
             {
-                Instantiate(_hitEffectPrefab, _hitEffectTarget.transform.position, Quaternion.identity);
+                Instantiate(_hitEffectPrefab, _targetEffects.transform.position, Quaternion.identity);
             }
             if (objectToRotate != null)
             {
@@ -80,19 +78,11 @@ public class Hammer : MonoBehaviour
         }
     }
 
-    private void EnableCollider()
-    {
-        if (boxCollider != null && !boxCollider.enabled)
-        {
-            boxCollider.enabled = true; 
-        }
-    }
-
     private IEnumerator PerformHammerStrike()
     {
         Destroy(_target);
         float elapsedTime = 0f;
-        Quaternion targetRotation = _originalRotation * Quaternion.Euler(-90f, 0f, 0f);
+        Quaternion targetRotation = _originalRotation * Quaternion.Euler(70f, 0f, 0f);
 
         while (elapsedTime < _attackDuration)
         {
@@ -124,12 +114,6 @@ public class Hammer : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.2f);
-
-        // Désactiver le collider après l'attaque
-        if (boxCollider != null)
-        {
-            boxCollider.enabled = false;
-        }
 
         if (objectToRotate != null)
         {
