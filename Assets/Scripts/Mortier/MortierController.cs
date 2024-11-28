@@ -3,17 +3,26 @@ using UnityEngine;
 public class MortarController : MonoBehaviour
 {
     [Header("Mortar Settings")]
-    public GameObject projectilePrefab;      
-    public Transform firePoint;             
-    public float firingInterval = 2f;       
-    public float rotationSpeed = 5f;        
-    public float launchForceMultiplier = 1f; 
-    public float detectionRadius = 20f;      
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    public BuildingComponent BuildingComponent;   
+    public float launchForceMultiplier = 1f;
+    public float detectionRadius = 20f;
+    public float rotationSpeed = 5f;
 
     [Header("Target Settings")]
-    public LayerMask targetLayer;           
-    private Transform currentTarget;        
+    public LayerMask targetLayer;
+    private Transform currentTarget;
     private float elapsedTime;
+
+    void Start()
+    {
+        if (BuildingComponent != null)
+        {
+            detectionRadius = BuildingComponent.Range; 
+            launchForceMultiplier = BuildingComponent.Attackspeed; 
+        }
+    }
 
     void Update()
     {
@@ -27,7 +36,7 @@ public class MortarController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-            if (elapsedTime >= firingInterval)
+            if (elapsedTime >= BuildingComponent.Attackspeed)  
             {
                 elapsedTime = 0;
                 FireProjectile();
@@ -63,16 +72,16 @@ public class MortarController : MonoBehaviour
         Vector3 flatDirection = new Vector3(targetPosition.x - firePoint.position.x, 0, targetPosition.z - firePoint.position.z);
         float horizontalDistance = flatDirection.magnitude;
         float heightDifference = targetPosition.y - firePoint.position.y;
-        float gravity = Mathf.Abs(Physics.gravity.y); 
-        float angleRad = Mathf.Deg2Rad * 45; 
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float angleRad = Mathf.Deg2Rad * 45;
 
         float velocity = Mathf.Sqrt((gravity * horizontalDistance * horizontalDistance) /
                                     (2 * (horizontalDistance * Mathf.Tan(angleRad) - heightDifference)));
 
         float minForce = 0.5f;
         float maxForce = 2f;
-        float normalizedDistance = Mathf.Clamp01(horizontalDistance / detectionRadius); 
-        float dynamicMultiplier = Mathf.Lerp(minForce, maxForce, normalizedDistance); 
+        float normalizedDistance = Mathf.Clamp01(horizontalDistance / detectionRadius);
+        float dynamicMultiplier = Mathf.Lerp(minForce, maxForce, normalizedDistance);
 
         Vector3 velocityVector = flatDirection.normalized * velocity * Mathf.Cos(angleRad);
         velocityVector.y = velocity * Mathf.Sin(angleRad);
@@ -86,8 +95,6 @@ public class MortarController : MonoBehaviour
             rb.linearVelocity = velocityVector * dynamicMultiplier;
         }
     }
-
-
 
     private void OnDrawGizmosSelected()
     {

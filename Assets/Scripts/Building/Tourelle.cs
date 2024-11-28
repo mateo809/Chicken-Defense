@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class Tourelle : MonoBehaviour
 {
+
     private Transform target;
     public Transform partToRotate;
 
     private Enemy enemy;
-    public BuildingScriptableObject tourelle; 
+    public BuildingScriptableObject tourelle;  
+    public BuildingComponent BuildingComponent; 
 
-    private BuildingScriptableObject tourelleCopy; 
+    private BuildingScriptableObject tourelleCopy;
 
     public GameObject projectilePrefab;
     public GameObject ParticuleShoot;
@@ -28,8 +30,7 @@ public class Tourelle : MonoBehaviour
         if (tourelle != null)
         {
             tourelleCopy = Instantiate(tourelle); 
-            attackSpeed = tourelleCopy.Attackspeed;
-            Range = tourelleCopy.Range;
+            InitializeBuildingStats(tourelleCopy); 
         }
         else
         {
@@ -38,19 +39,32 @@ public class Tourelle : MonoBehaviour
 
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
+    public void InitializeBuildingStats(BuildingScriptableObject data)
+    {
+        if (BuildingComponent != null)
+        {
+            BuildingComponent.InitializeStats(data); 
+            attackSpeed = BuildingComponent.Attackspeed;
+            Range = BuildingComponent.Range;
+        }
+        else
+        {
+            Debug.LogError("Le BuildingComponent est nul !");
+        }
+    }
 
     private void Update()
     {
+        attackSpeed = BuildingComponent.Attackspeed;
+        Range = BuildingComponent.Range;
         if (target == null)
         {
             return;
         }
-
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-
         if (attackCooldown <= 0f)
         {
             if (tourelleCopy != null && enemy != null)
@@ -66,7 +80,6 @@ public class Tourelle : MonoBehaviour
             attackCooldown -= Time.deltaTime;
         }
     }
-
     void UpdateTarget()
     {
         GameObject[] ennemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -94,7 +107,6 @@ public class Tourelle : MonoBehaviour
             target = null;
         }
     }
-
     public void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, Range);
@@ -118,17 +130,5 @@ public class Tourelle : MonoBehaviour
                 projectile.damage = tourelleCopy.Damage;
             }
         }
-    }
-
-    public void AmeliorerTourelle()
-    {
-        if (tourelleCopy != null)
-        {
-            tourelleCopy.Damage += 10;  
-            tourelleCopy.Attackspeed -= 0.5f;  
-            tourelleCopy.Range += 5; 
-        }
-        attackSpeed = tourelleCopy.Attackspeed;
-        Range = tourelleCopy.Range;
     }
 }

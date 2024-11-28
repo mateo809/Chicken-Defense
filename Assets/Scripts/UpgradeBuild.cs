@@ -37,7 +37,7 @@ public class UpgradeBuild : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.CompareTag("Build"))
+            if (hit.collider.gameObject.CompareTag("Build"))
             {
                 BuildingComponent buildingComponent = hit.collider.GetComponent<BuildingComponent>();
                 if (buildingComponent != null)
@@ -45,23 +45,33 @@ public class UpgradeBuild : MonoBehaviour
                     if (selectedBuilding != buildingComponent)
                     {
                         selectedBuilding = buildingComponent;
-                        if (selectedBuilding.instanceData == null)
-                        {
-                            selectedBuilding.instanceData = new BuildingInstanceData(selectedBuilding.buildingData);
-                        }
 
-                        LoadBuildingData(selectedBuilding.instanceData);
+                        if (selectedBuilding.buildingData == null)
+                        {
+                            if (selectedBuilding.buildingData != null)
+                            {
+                                Debug.Log($"BuildingData found: {selectedBuilding.buildingData.BuildName}, Cost: {selectedBuilding.buildingData.Cost}, AttackSpeed: {selectedBuilding.buildingData.Attackspeed}");
+                            }
+                            else
+                            {
+                                Debug.LogError("BuildingData is null when trying to create instance data.");
+                            }
+                        }
+                        LoadBuildingData(selectedBuilding);
                         infoPanel.SetActive(true);
                     }
                 }
             }
+
         }
     }
 
-    private void LoadBuildingData(BuildingInstanceData instanceData)
+    private void LoadBuildingData(BuildingComponent instanceData)
     {
         if (instanceData != null)
         {
+            Debug.Log($"Loading data for: {instanceData.BuildName}, Level: {instanceData.Level}, Cost: {instanceData.Cost}");
+
             buildNameText.text = $"Name: {instanceData.BuildName} (Lvl {instanceData.Level})";
             buildingImage.sprite = instanceData.sprite;
             costText.text = $"Cost: {instanceData.Cost} Gold";
@@ -70,20 +80,26 @@ public class UpgradeBuild : MonoBehaviour
             rangeText.text = $"Range: {instanceData.Range:F2}";
             upgradeButton.interactable = GameManager.instance.Coins >= instanceData.Cost;
         }
+        else
+        {
+            Debug.LogError("InstanceData is null in LoadBuildingData.");
+        }
     }
 
     private void UpgradeBuilding()
     {
-        if (selectedBuilding == null || selectedBuilding.instanceData == null) return;
-
-        BuildingInstanceData instanceData = selectedBuilding.instanceData;
-
+        if (selectedBuilding == null || selectedBuilding.buildingData == null) return;
+        BuildingComponent instanceData = selectedBuilding;
+        if (instanceData.Level == 10)
+        {
+            return;
+        }
+ 
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
             GameManager.instance.Coins -= instanceData.Cost;
-
             instanceData.Level++;
-            instanceData.Cost += instanceData.Cost * instanceData.Level;
+            instanceData.Cost *= 2;
             instanceData.Attackspeed *= 0.9f;
             instanceData.Damage += 10;
             instanceData.Range += 0.5f;

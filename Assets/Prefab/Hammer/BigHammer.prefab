@@ -2304,15 +2304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86e289e08cae1949b5142f318403f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRadius: 5
+  Damage: 50
+  AttackCooldown: 2
   HammerScriptable: {fileID: 11400000, guid: 2ece4eb2727e9024886043abe2344254, type: 2}
-  InstanceData:
-    BuildName: canon
-    Level: 1
-    Cost: 150
-    Attackspeed: 1
-    Damage: 5
-    Range: 15
-    sprite: {fileID: 21300000, guid: 6ca4fbb643d1d7148a03e009115eed38, type: 3}
+  BuildingComponent: {fileID: -7898736876618083190}
   _hitEffectPrefab: {fileID: 5266378106977556716, guid: deddd3541bf66474d8e1aeab8d89a466, type: 3}
   _hitEffectTarget: {fileID: 7462868247753360652}
   _target: {fileID: 7970762634601764739}
@@ -2333,7 +2329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 4304507125401455133}
-  tourelle: {fileID: 0}
+  tourelle: {fileID: 11400000, guid: 2ece4eb2727e9024886043abe2344254, type: 2}
+  BuildingComponent: {fileID: -7898736876618083190}
   projectilePrefab: {fileID: 0}
   ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
@@ -2402,14 +2399,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingID: 0
   buildingData: {fileID: 11400000, guid: 2ece4eb2727e9024886043abe2344254, type: 2}
-  instanceData:
-    BuildName: 
-    Level: 0
-    Cost: 0
-    Attackspeed: 0
-    Damage: 0
-    Range: 0
-    sprite: {fileID: 0}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}
 --- !u!1 &7661692414338177529
 GameObject:
   m_ObjectHideFlags: 0

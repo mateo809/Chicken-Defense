@@ -117,6 +117,10 @@ public class GameManager : MonoBehaviour
 
     private void UpdateUI()
     {
+        if(enemiesRemaining <= 0)
+        {
+            enemiesRemaining = 0;
+        }
         _coins.text = Coins.ToString();
         _wave.text = "Wave : " + WaveNumber.ToString();
         _enemyRemaining.text = enemiesRemaining.ToString();

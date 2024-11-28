@@ -583,6 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 1565216561110364025}
   tourelle: {fileID: 11400000, guid: 93f04ec75c80b6749a79717ec42f6625, type: 2}
+  BuildingComponent: {fileID: -7650147938338855404}
   projectilePrefab: {fileID: 2994985458253796513, guid: 560d45a46e3c5a44eb915ac6e4ed1396, type: 3}
   ParticuleShoot: {fileID: 1546897667432260974, guid: 9e8fbbdbe7487924fb7c07a7087dfc20, type: 3}
   firePoint: {fileID: 8361779799126798802}
@@ -651,3 +652,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingID: 0
   buildingData: {fileID: 11400000, guid: 93f04ec75c80b6749a79717ec42f6625, type: 2}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}

@@ -6,22 +6,23 @@ public class ProjectileMortier : MonoBehaviour
     public float lifetime = 5f;
     public int damage;
 
+    public BuildingComponent BuildingComponent;
+
     private Rigidbody rb;
 
     private void Start()
     {
         Destroy(gameObject, lifetime); 
+
+        if(BuildingComponent != null)
+        {
+            damage = BuildingComponent.Damage;
+        }
     }
 
-    public void Launch(Vector3 initialVelocity, int damage)
+    private void Update()
     {
-        rb = GetComponent<Rigidbody>();
-        this.damage = damage;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = initialVelocity;  
-        }
+        damage = BuildingComponent.Damage;
     }
 
     private void OnCollisionEnter(Collision collision)

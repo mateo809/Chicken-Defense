@@ -4959,6 +4959,7 @@ GameObject:
   - component: {fileID: 2628127338261008483}
   - component: {fileID: 4540433821511749899}
   - component: {fileID: -4988340574882057566}
+  - component: {fileID: 6949007870579985601}
   m_Layer: 0
   m_Name: BombPrefab
   m_TagString: Untagged
@@ -5115,3 +5116,25 @@ MonoBehaviour:
   explosionRadius: 8
   lifetime: 5
   damage: 50
+  BuildingComponent: {fileID: 6949007870579985601}
+--- !u!114 &6949007870579985601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266378106977556716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingID: 0
+  buildingData: {fileID: 11400000, guid: 3bed09feffa94f44e982614cdcc25810, type: 2}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}

@@ -63,10 +63,25 @@ public class InventoryBuildManager : MonoBehaviour
     public void CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         GameObject _previewObject = Instantiate(prefab, position, rotation);
-        _previewObject.GetComponent<BoxCollider>().enabled = true;
-        if (_previewObject.TryGetComponent(out Tourelle tourelle))
+
+        Tourelle tourelle = _previewObject.GetComponent<Tourelle>();
+        if (tourelle != null)
         {
-            tourelle.enabled = true;
+            BuildingComponent buildingComponent = _previewObject.GetComponent<BuildingComponent>();
+            if (buildingComponent != null)
+            {
+                tourelle.InitializeBuildingStats(buildingComponent.buildingData);
+                _previewObject.GetComponent<BoxCollider>().enabled = true;
+                tourelle.enabled = true;
+            }
+            else
+            {
+                Debug.LogError("BuildingComponent component not found on the prefab.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Tourelle component not found on the prefab.");
         }
     }
 

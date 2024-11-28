@@ -1668,7 +1668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 779013833468757746}
-  tourelle: {fileID: 0}
+  tourelle: {fileID: 11400000, guid: bbc05a9976adf114b9704ac63db31152, type: 2}
+  BuildingComponent: {fileID: 8939755938539307714}
   projectilePrefab: {fileID: 0}
   ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
@@ -1689,10 +1690,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5266378106977556716, guid: 12f0efbd90f868643b73005b9db32a84, type: 3}
   firePoint: {fileID: 222042138700566658}
-  firingInterval: 5
-  rotationSpeed: 5
+  BuildingComponent: {fileID: 8939755938539307714}
   launchForceMultiplier: 1
   detectionRadius: 40
+  rotationSpeed: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1715,8 +1716,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.527082, y: 7.6896973, z: 1.6609166}
-  m_Center: {x: -0.07423782, y: 3.3448486, z: 0.014971813}
+  m_Size: {x: 3.527082, y: 7.6896973, z: 2.4623168}
+  m_Center: {x: -0.07423782, y: 3.3448486, z: -0.0036859512}
 --- !u!114 &8939755938539307714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1729,7 +1730,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingID: 0
   buildingData: {fileID: 11400000, guid: bbc05a9976adf114b9704ac63db31152, type: 2}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}
 --- !u!1 &6119052856467817321
 GameObject:
   m_ObjectHideFlags: 0

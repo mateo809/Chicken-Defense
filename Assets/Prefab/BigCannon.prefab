@@ -2243,8 +2243,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3575053, y: 1, z: 2.347715}
-  m_Center: {x: -0.005071521, y: 0, z: 0.3548208}
+  m_Size: {x: 1.3575053, y: 1.1943665, z: 2.4951622}
+  m_Center: {x: -0.005071521, y: 0.548275, z: 0.28109705}
 --- !u!114 &8866865625818319583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2259,6 +2259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 4321680010222119645}
   tourelle: {fileID: 11400000, guid: 57ddae741f140dc4e9f8f3f4c8813635, type: 2}
+  BuildingComponent: {fileID: -4262058203901554433}
   projectilePrefab: {fileID: 2994985458253796513, guid: 560d45a46e3c5a44eb915ac6e4ed1396, type: 3}
   ParticuleShoot: {fileID: 1546897667432260974, guid: 9e8fbbdbe7487924fb7c07a7087dfc20, type: 3}
   firePoint: {fileID: 2722871749424043922}
@@ -2279,6 +2280,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingID: 0
   buildingData: {fileID: 11400000, guid: 57ddae741f140dc4e9f8f3f4c8813635, type: 2}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}
 --- !u!1 &6677759172833439970
 GameObject:
   m_ObjectHideFlags: 0

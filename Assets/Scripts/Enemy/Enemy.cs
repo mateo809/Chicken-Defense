@@ -1,6 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,12 +11,22 @@ public class Enemy : MonoBehaviour
 
     public int currentHealth;
 
+    [Header("Health Bar Settings")]
+    public Slider healthBar; 
+
     private void Start()
     {
         if (enemyType != null)
         {
             currentHealth = enemyType.health;
             transform.name = enemyType.enemyName;
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(false);
+            healthBar.maxValue = enemyType.health;
+            healthBar.value = currentHealth;
         }
     }
     public void SetTourelle(Tourelle newTourelle)
@@ -28,13 +38,20 @@ public class Enemy : MonoBehaviour
     {
         if (tourelle != null)
         {
-            BuildingScriptableObject buildingScriptable = tourelle.GetComponent<Tourelle>().tourelle;
-            if (buildingScriptable != null)
+            BuildingComponent buildingComponent = tourelle.GetComponent<BuildingComponent>();
+            if (buildingComponent != null)
             {
-                damage = buildingScriptable.Damage;
+                healthBar.gameObject.SetActive(true);
+                damage = buildingComponent.Damage;
             }
         }
         currentHealth -= damage;
+
+        if (healthBar != null)
+        {
+            healthBar.value = currentHealth;
+        }
+
         if (currentHealth <= 0)
         {
             Die();

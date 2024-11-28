@@ -1,17 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
 public class BuildingComponent : MonoBehaviour
 {
     public int buildingID;
     public BuildingScriptableObject buildingData;
 
-    [HideInInspector]
-    public BuildingInstanceData instanceData;
-}
-
-[System.Serializable]
-public class BuildingInstanceData
-{
     public string BuildName;
     public int Level;
     public int Cost;
@@ -20,14 +12,17 @@ public class BuildingInstanceData
     public float Range;
     public Sprite sprite;
 
-    public BuildingInstanceData(BuildingScriptableObject buildingData)
+    public void InitializeStats(BuildingScriptableObject data)
     {
-        BuildName = buildingData.BuildName;
-        Level = buildingData.Level;
-        Cost = buildingData.Cost;
-        Attackspeed = buildingData.Attackspeed;
-        Damage = buildingData.Damage;
-        Range = buildingData.Range;
-        sprite = buildingData.sprite;
+        BuildName = data.BuildName;
+        Level = 1;
+        Cost = data.Cost;
+        Attackspeed = data.Attackspeed;
+        Damage = data.Damage;
+        Range = data.Range;
+        sprite = data.sprite;
+
+        Debug.Log($"BuildingInstanceData created: {BuildName}, Cost: {Cost}, AttackSpeed: {Attackspeed}, Damage: {Damage}, Range: {Range}");
     }
 }
+

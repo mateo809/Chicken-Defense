@@ -3,12 +3,13 @@ using System.Collections;
 
 public class Hammer : MonoBehaviour
 {
-    public static Hammer Instance;  
+    public static Hammer Instance;
     [Header("Hammer Settings")]
     public float AttackRadius = 5f;
     public float Damage = 50f;
     public float AttackCooldown = 2f;
     public BuildingScriptableObject HammerScriptable;
+    public BuildingComponent BuildingComponent;
     [SerializeField] private GameObject _hitEffectPrefab;
     [SerializeField] private GameObject _hitEffectTarget;
     [SerializeField] private GameObject _target;
@@ -27,15 +28,21 @@ public class Hammer : MonoBehaviour
     private void Awake()
     {
         if (Instance != null)
-        { 
-            Instance = this;      
+        {
+            Instance = this;
         }
-
     }
 
     private void Start()
     {
-        if (HammerScriptable != null)
+        // Initialiser les paramètres à partir de BuildingComponent si disponible
+        if (BuildingComponent != null)
+        {
+            AttackRadius = BuildingComponent.Range; // Par exemple, si BuildingComponent définit l'attaque de rayon
+            AttackCooldown = BuildingComponent.Attackspeed; // Attente entre les attaques
+            Damage = BuildingComponent.Damage; // Dommages de l'attaque
+        }
+        else if (HammerScriptable != null) // Au cas où BuildingComponent serait null, utiliser le scriptable object
         {
             AttackRadius = HammerScriptable.Range;
             AttackCooldown = HammerScriptable.Attackspeed;
@@ -53,6 +60,13 @@ public class Hammer : MonoBehaviour
         boxCollider.center = ColliderOffset;
     }
 
+    private void Update()
+    {
+        AttackRadius = BuildingComponent.Range; // Par exemple, si BuildingComponent définit l'attaque de rayon
+        AttackCooldown = BuildingComponent.Attackspeed; // Attente entre les attaques
+        Damage = BuildingComponent.Damage;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && !_isAttacking && Time.time >= _nextAttackTime)
@@ -66,7 +80,7 @@ public class Hammer : MonoBehaviour
         if (!_isAttacking && Time.time >= _nextAttackTime)
         {
             _isAttacking = true;
-            _nextAttackTime = Time.time + AttackCooldown; 
+            _nextAttackTime = Time.time + AttackCooldown;
             if (_hitEffectPrefab != null)
             {
                 Instantiate(_hitEffectPrefab, _targetEffects.transform.position, Quaternion.identity);

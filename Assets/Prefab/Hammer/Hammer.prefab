@@ -662,6 +662,7 @@ MonoBehaviour:
   Damage: 50
   AttackCooldown: 2
   HammerScriptable: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
+  BuildingComponent: {fileID: 987005746282647958}
   _hitEffectPrefab: {fileID: 5266378106977556716, guid: deddd3541bf66474d8e1aeab8d89a466, type: 3}
   _hitEffectTarget: {fileID: 7022838863861601793}
   _target: {fileID: 3771014247449180013}
@@ -682,7 +683,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 7239950239324363296}
-  tourelle: {fileID: 0}
+  tourelle: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
+  BuildingComponent: {fileID: 987005746282647958}
   projectilePrefab: {fileID: 0}
   ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
@@ -749,7 +751,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174183005fe73343bdd34b0802bf772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingID: 0
   buildingData: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
+  BuildName: 
+  Level: 0
+  Cost: 0
+  Attackspeed: 0
+  Damage: 0
+  Range: 0
+  sprite: {fileID: 0}
 --- !u!1 &7022838863861601793
 GameObject:
   m_ObjectHideFlags: 0

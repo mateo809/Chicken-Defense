@@ -145,3 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   damage: 10
+  BuildingComponent: {fileID: 0}
