@@ -13,6 +13,7 @@ public class UpgradeBuild : MonoBehaviour
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button destroyButton; 
 
     private BuildingComponent selectedBuilding;
 
@@ -22,6 +23,8 @@ public class UpgradeBuild : MonoBehaviour
             infoPanel.SetActive(false);
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(UpgradeBuilding);
+        if (destroyButton != null)
+            destroyButton.onClick.AddListener(DestroyBuilding); 
     }
 
     private void Update()
@@ -42,29 +45,35 @@ public class UpgradeBuild : MonoBehaviour
                 BuildingComponent buildingComponent = hit.collider.GetComponent<BuildingComponent>();
                 if (buildingComponent != null)
                 {
-                    if (selectedBuilding != buildingComponent)
+                    if (selectedBuilding == buildingComponent && infoPanel.activeSelf)
                     {
-                        selectedBuilding = buildingComponent;
-
-                        if (selectedBuilding.buildingData == null)
-                        {
-                            if (selectedBuilding.buildingData != null)
-                            {
-                                Debug.Log($"BuildingData found: {selectedBuilding.buildingData.BuildName}, Cost: {selectedBuilding.buildingData.Cost}, AttackSpeed: {selectedBuilding.buildingData.Attackspeed}");
-                            }
-                            else
-                            {
-                                Debug.LogError("BuildingData is null when trying to create instance data.");
-                            }
-                        }
-                        LoadBuildingData(selectedBuilding);
-                        infoPanel.SetActive(true);
+                        Debug.Log("Same building clicked, panel is already open.");
+                        return; 
                     }
+
+                    selectedBuilding = buildingComponent;
+
+                    if (selectedBuilding.buildingData == null)
+                    {
+                        Debug.LogError("BuildingData is null when trying to create instance data.");
+                    }
+                    else
+                    {
+                        Debug.Log($"BuildingData found: {selectedBuilding.buildingData.BuildName}, Cost: {selectedBuilding.buildingData.Cost}, AttackSpeed: {selectedBuilding.buildingData.Attackspeed}");
+                    }
+
+                    LoadBuildingData(selectedBuilding);
+                    infoPanel.SetActive(true);
                 }
             }
-
+        }
+        else 
+        {
+            infoPanel.SetActive(false);
+            selectedBuilding = null;
         }
     }
+
 
     private void LoadBuildingData(BuildingComponent instanceData)
     {
@@ -94,7 +103,7 @@ public class UpgradeBuild : MonoBehaviour
         {
             return;
         }
- 
+
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
             GameManager.instance.Coins -= instanceData.Cost;
@@ -113,5 +122,15 @@ public class UpgradeBuild : MonoBehaviour
             Debug.Log("Not enough gold to upgrade!");
         }
     }
-}
 
+    private void DestroyBuilding()
+    {
+        if (selectedBuilding == null) return;
+        BuildingComponent instanceData = selectedBuilding;
+        GameManager.instance.Coins += instanceData.Cost;
+        Debug.Log($"Destroying building {selectedBuilding.buildingID}");
+        Destroy(selectedBuilding.gameObject); 
+        selectedBuilding = null; 
+        infoPanel.SetActive(false); 
+    }
+}

@@ -153,10 +153,14 @@ public class GameManager : MonoBehaviour
 
     public void SpawnAI()
     {
-        if (IAObjectPrefab != null)
+        if (IAObjectPrefab == null)
         {
             Instantiate(IAObjectPrefab, _spawner.position, Quaternion.identity);
             Debug.Log("IA spawn!");
+        }
+        else
+        {
+            return;
         }
     }
 }
