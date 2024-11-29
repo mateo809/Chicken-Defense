@@ -130,7 +130,7 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             if (hit.collider)
             {
-                Vector3 position = hit.point;
+                Vector3 position = hit.point + new Vector3(0,0.5f,0);
                 if (_prefabToInstantiate != null)
                 {
                     GameObject placedObject = Instantiate(_prefabToInstantiate, position, Quaternion.identity);
