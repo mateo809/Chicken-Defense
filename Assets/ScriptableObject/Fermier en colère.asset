@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Coins: 5
   enemyName: "Fermier en col\xE8re"
-  speed: 7
-  health: 90
-  damage: 20
-  enemyPrefab: {fileID: 8696189743804109500, guid: 12cf0ffffc8b4af46bbcfc549853b63b, type: 3}
+  speed: 8
+  health: 200
+  damage: 10
+  enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}

@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
     [SerializeField] private TextMeshProUGUI _scorePlayer;
 
+    public RectTransform _shopButton;
+    public GameObject BuildPanel;
+    public GameObject HeroPanel;
 
     public TextMeshProUGUI _InstructionRota;
     public TextMeshProUGUI _InstructionMissile;
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject IAObjectPrefab;  
     public float aiSpawnInterval = 45f; 
-    private float aiSpawnTimer = 0f;  
+    private float aiSpawnTimer = 0f;
 
     private void Awake()
     {

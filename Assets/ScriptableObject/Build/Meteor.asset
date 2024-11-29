@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a955c5772fef2fb45b5149163d4c2321, type: 3}
-  m_Name: Fermier en brouette
+  m_Script: {fileID: 11500000, guid: 2de6e455c8bc8b9478ee1c915c38ffe8, type: 3}
+  m_Name: Meteor
   m_EditorClassIdentifier: 
-  Coins: 10
-  enemyName: Fermier en brouette
-  speed: 10
-  health: 120
-  damage: 5
-  enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}
+  Level: 0
+  Cost: 0
+  sprite: {fileID: 0}
+  BuildName: 
+  Attackspeed: 0
+  Damage: 30
+  Range: 0
+  BuildPrefab: {fileID: 0}

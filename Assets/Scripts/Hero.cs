@@ -22,6 +22,8 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [SerializeField] private float _cooldownTime = 15.0f; 
     private float _lastUseTime = -Mathf.Infinity;
 
+    public GameObject Decollage;
+
     void Start()
     {
 
@@ -65,6 +67,7 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             if (_cooldownText != null) _cooldownText.gameObject.SetActive(false);
 
             _previewPrefabToInstantiate = Instantiate(_prefabToInstantiate);
+            Decollage.gameObject.SetActive(true);
             _previewPrefabToInstantiate.name = "Preview " + _prefabToInstantiate.name;
 
             if (_previewPrefabToInstantiate.TryGetComponent(out Collider collider))
@@ -143,6 +146,7 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                     var particleSystem = placedObject.GetComponentInChildren<ParticleSystem>();
                     if (particleSystem != null)
                     {
+                        Decollage.gameObject.SetActive(false);
                         _animPlane.gameObject.SetActive(true);
                         Destroy(_previewPrefabToInstantiate);
                         particleSystem.Play();
@@ -174,8 +178,23 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                StartCoroutine(ApplyDamageWithDelay(enemy, 0.25f));  
             }
         }
     }
+
+    private IEnumerator ApplyDamageWithDelay(Enemy enemy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+            if (enemy.healthBar != null)
+            {
+                enemy.healthBar.gameObject.SetActive(true);
+            }
+        }
+    }
+
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fermier sur cochon
   m_EditorClassIdentifier: 
   Coins: 15
-  enemyName: Fermier en cochon
+  enemyName: Cochon
   speed: 15
-  health: 150
-  damage: 8
+  health: 130
+  damage: 30
   enemyPrefab: {fileID: 3871324095154313045, guid: 74c378865e2935643a3c99ed128839af, type: 3}

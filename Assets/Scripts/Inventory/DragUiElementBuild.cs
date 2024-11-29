@@ -91,6 +91,9 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             TryPlaceObject(eventData);
         }
         InventoryBuildManager.Instance.FadeUIElement(1f);
+        GameManager.instance.BuildPanel.SetActive(false);
+        GameManager.instance._shopButton.gameObject.SetActive(true);
+        GameManager.instance.HeroPanel.SetActive(true);
     }
 
     private void UpdatePreviewPosition(PointerEventData data)

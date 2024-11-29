@@ -110,8 +110,8 @@ public class UpgradeBuild : MonoBehaviour
             instanceData.Level++;
             instanceData.Cost *= 2;
             instanceData.Attackspeed *= 0.9f;
-            instanceData.Damage += 10;
-            instanceData.Range += 0.5f;
+            instanceData.Damage += 5;
+            instanceData.Range += 0.25f;
 
             Debug.Log($"Building {selectedBuilding.buildingID} upgraded to level {instanceData.Level}");
 

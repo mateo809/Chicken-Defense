@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public int currentHealth;
 
     [Header("Health Bar Settings")]
-    public Slider healthBar; 
+    public Slider healthBar;
 
     private void Start()
     {
@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
             currentHealth = enemyType.health;
             transform.name = enemyType.enemyName;
         }
-
         if (healthBar != null)
         {
             healthBar.gameObject.SetActive(false);
@@ -29,6 +28,7 @@ public class Enemy : MonoBehaviour
             healthBar.value = currentHealth;
         }
     }
+
     public void SetTourelle(Tourelle newTourelle)
     {
         tourelle = newTourelle;
@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
                 damage = buildingComponent.Damage;
             }
         }
+
         currentHealth -= damage;
 
         if (healthBar != null)
@@ -60,17 +61,17 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        StartCoroutine(SpawnGold());
-        GameManager.instance.Score += 5;
-        GameManager.instance.Coins += enemyType.Coins;
-        GameManager.instance.enemiesRemaining--;
-        Destroy(gameObject);
+        StartCoroutine(SpawnGold()); 
+        GameManager.instance.Score += 5; 
+        GameManager.instance.Coins += enemyType.Coins; 
+        GameManager.instance.enemiesRemaining--; 
+        Destroy(gameObject); 
     }
 
     public IEnumerator SpawnGold()
     {
         GameObject go = Instantiate(GameManager.instance.Gold, transform.position, transform.rotation);
-        Destroy(go, 2f);
+        Destroy(go, 2f); 
         yield return null;
     }
 }
