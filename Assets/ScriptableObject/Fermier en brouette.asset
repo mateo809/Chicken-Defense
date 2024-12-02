@@ -15,6 +15,6 @@ MonoBehaviour:
   Coins: 10
   enemyName: Fermier en brouette
   speed: 10
-  health: 120
-  damage: 5
+  health: 150
+  damage: 8
   enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}
