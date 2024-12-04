@@ -17,19 +17,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scorePlayer;
 
     public RectTransform _shopButton;
-    public GameObject BuildPanel;
-    public GameObject HeroPanel;
 
     public TextMeshProUGUI _InstructionRota;
     public TextMeshProUGUI _InstructionMissile;
 
+    public GameObject BuildPanel;
+    public GameObject HeroPanel;
     public GameObject Gold;
-
+    public GameObject IAObjectPrefab;  
     public GameObject _button;
+    [SerializeField] private GameObject _waveFeedback;
 
     public float TimeBetweenWaves = 0f;
     private float _countdown;
-
+    public float aiSpawnInterval = 45f; 
+    private float aiSpawnTimer = 0f;
     [SerializeField] private float spawnDelay = 0.5f;
 
     public int Coins = 0;
@@ -41,11 +43,7 @@ public class GameManager : MonoBehaviour
     public Material GreenPreview;
 
     private bool waveInProgress = false;
-
-    public GameObject IAObjectPrefab;  
-    public float aiSpawnInterval = 45f; 
-    private float aiSpawnTimer = 0f;
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -130,10 +128,12 @@ public class GameManager : MonoBehaviour
         _scorePlayer.text = Score.ToString();
         if (waveInProgress || enemiesRemaining > 0)
         {
+            _waveFeedback.gameObject.SetActive(false);
             _timer.text = "In Progress";
         }
         else
         {
+            _waveFeedback.gameObject.SetActive(true);
             _timer.text = Mathf.Ceil(_countdown).ToString();
         }
     }
