@@ -24,14 +24,14 @@ public class GameManager : MonoBehaviour
     public GameObject BuildPanel;
     public GameObject HeroPanel;
     public GameObject Gold;
-    public GameObject IAObjectPrefab;  
+    public GameObject IAObjectPrefab;
     public GameObject _button;
     [SerializeField] private GameObject _waveFeedback;
     [SerializeField] private GameObject _warningPanel;
 
     public float TimeBetweenWaves = 0f;
     private float _countdown;
-    public float aiSpawnInterval = 45f; 
+    public float aiSpawnInterval = 45f;
     private float aiSpawnTimer = 0f;
     [SerializeField] private float spawnDelay = 0.5f;
 
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     public Material GreenPreview;
 
     private bool waveInProgress = false;
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         if (aiSpawnTimer >= aiSpawnInterval)
         {
             aiSpawnTimer = 0f;
-            SpawnAI(); 
+            SpawnAI();
         }
 
         UpdateUI();
@@ -89,8 +89,9 @@ public class GameManager : MonoBehaviour
         _countdown = TimeBetweenWaves;
 
         if (WaveNumber % 5 == 0)
-        {        
-            //IncreaseEnemyStats(0.25f);
+        {
+            StartCoroutine(WarningPanel());
+            yield return new WaitForSeconds(2f);
         }
 
         int enemiesToSpawn = WaveNumber * 10;
@@ -119,14 +120,25 @@ public class GameManager : MonoBehaviour
             int randomIndex = Random.Range(0, enemyTypes.Length);
             EnemyTypeScriptableObject chosenType = enemyTypes[randomIndex];
             GameObject spawnedEnemy = Instantiate(chosenType.enemyPrefab, _spawner.position, _spawner.rotation);
+
+            // Use EnemyComponent instead of directly modifying the ScriptableObject
+            EnemyComponent enemyComponent = spawnedEnemy.GetComponent<EnemyComponent>();
+            if (enemyComponent != null)
+            {
+                enemyComponent.InitializeStats(chosenType); // Initialize stats using the ScriptableObject
+            }
+
             Enemy enemyScript = spawnedEnemy.GetComponent<Enemy>();
-            enemyScript.enemyType = chosenType;
+            if (enemyScript != null)
+            {
+                enemyScript.enemyComponent = enemyComponent; // Link the EnemyComponent
+            }
         }
     }
 
     private void UpdateUI()
     {
-        if(enemiesRemaining <= 0)
+        if (enemiesRemaining <= 0)
         {
             enemiesRemaining = 0;
         }
@@ -161,19 +173,16 @@ public class GameManager : MonoBehaviour
             enemyType.damage = Mathf.RoundToInt(enemyType.damage * (1 + percentage));
             enemyType.speed *= (1 + percentage);
         }
+
         Debug.Log("Enemy stats increased by " + (percentage * 100) + "% for wave " + WaveNumber);
     }
 
     public void SpawnAI()
     {
-        if (IAObjectPrefab == null)
+        if (IAObjectPrefab != null)
         {
             Instantiate(IAObjectPrefab, _spawner.position, Quaternion.identity);
             Debug.Log("IA spawn!");
-        }
-        else
-        {
-            return;
         }
     }
 }

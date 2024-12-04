@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public EnemyTypeScriptableObject enemyType;
+    public EnemyComponent enemyComponent; // Reference to the EnemyComponent class
 
     private Tourelle tourelle;
 
@@ -16,15 +16,17 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        if (enemyType != null)
+        if (enemyComponent != null)
         {
-            currentHealth = enemyType.health;
-            transform.name = enemyType.enemyName;
+            enemyComponent.InitializeStats(enemyComponent.enemyData); // Ensure stats are initialized
+
+            currentHealth = enemyComponent.Health;
+            transform.name = enemyComponent.EnemyName;
         }
         if (healthBar != null)
         {
             healthBar.gameObject.SetActive(false);
-            healthBar.maxValue = enemyType.health;
+            healthBar.maxValue = enemyComponent.Health;
             healthBar.value = currentHealth;
         }
     }
@@ -61,17 +63,17 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        StartCoroutine(SpawnGold()); 
-        GameManager.instance.Score += 5; 
-        GameManager.instance.Coins += enemyType.Coins; 
-        GameManager.instance.enemiesRemaining--; 
-        Destroy(gameObject); 
+        StartCoroutine(SpawnGold());
+        GameManager.instance.Score += 5;
+        GameManager.instance.Coins += enemyComponent.Coins; // Access Coins from EnemyComponent
+        GameManager.instance.enemiesRemaining--;
+        Destroy(gameObject);
     }
 
     public IEnumerator SpawnGold()
     {
         GameObject go = Instantiate(GameManager.instance.Gold, transform.position, transform.rotation);
-        Destroy(go, 2f); 
+        Destroy(go, 2f);
         yield return null;
     }
 }

@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4269700295928195345}
   - component: {fileID: 3334190616289455501}
   - component: {fileID: 474539158999896176}
+  - component: {fileID: 3785167270855451120}
   m_Layer: 6
   m_Name: SecondEnemy
   m_TagString: Enemy
@@ -226,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abd98c314432034c9a8c4fb0dc75177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: c72c465076f8d964493d40b442c19303, type: 2}
+  enemyComponent: {fileID: 3785167270855451120}
   _speed: 10
   objectToDestroy: {fileID: 0}
 --- !u!114 &3334190616289455501
@@ -241,10 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2da625e012384a46850c161f2710542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: c72c465076f8d964493d40b442c19303, type: 2}
+  enemyComponent: {fileID: 3785167270855451120}
   currentHealth: 0
   healthBar: {fileID: 6526458634615313686}
-  mainCamera: {fileID: 6817175678312861653, guid: ce2a290ba50b31b49ab89102103d5bbd, type: 3}
 --- !u!54 &474539158999896176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -272,6 +272,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &3785167270855451120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696189743804109500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37177cd9e9ace0745b84b33826097cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyID: 0
+  enemyData: {fileID: 11400000, guid: 69fe12dd2ad9ef14cb635e8874fa157b, type: 2}
+  EnemyName: 
+  Speed: 0
+  Health: 0
+  Damage: 0
+  Coins: 0
+  EnemyPrefab: {fileID: 0}
 --- !u!1001 &5202238919009418161
 PrefabInstance:
   m_ObjectHideFlags: 0

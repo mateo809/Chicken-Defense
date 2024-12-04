@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 225686130159714882}
   - component: {fileID: 8645090363728962988}
   - component: {fileID: 6411296421928397935}
+  - component: {fileID: 7341631644434206672}
   m_Layer: 6
   m_Name: ThirdEnemy
   m_TagString: Enemy
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abd98c314432034c9a8c4fb0dc75177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: 93d81ecc506d5ed488159be9a5563feb, type: 2}
+  enemyComponent: {fileID: 7341631644434206672}
   _speed: 0
   objectToDestroy: {fileID: 4623439733994172818}
 --- !u!114 &6411296421928397935
@@ -243,9 +244,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2da625e012384a46850c161f2710542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: 93d81ecc506d5ed488159be9a5563feb, type: 2}
+  enemyComponent: {fileID: 7341631644434206672}
   currentHealth: 0
   healthBar: {fileID: 1163122329198125685}
+--- !u!114 &7341631644434206672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3871324095154313045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37177cd9e9ace0745b84b33826097cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyID: 0
+  enemyData: {fileID: 11400000, guid: 93d81ecc506d5ed488159be9a5563feb, type: 2}
+  EnemyName: 
+  Speed: 0
+  Health: 0
+  Damage: 0
+  Coins: 0
+  EnemyPrefab: {fileID: 0}
 --- !u!1001 &181426770894884050
 PrefabInstance:
   m_ObjectHideFlags: 0
