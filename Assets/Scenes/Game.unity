@@ -5315,6 +5315,7 @@ MonoBehaviour:
   rangeText: {fileID: 626737719}
   upgradeButton: {fileID: 1228701914}
   destroyButton: {fileID: 1275135978}
+  upgradeIcon: {fileID: 0}
 --- !u!1 &953114338
 GameObject:
   m_ObjectHideFlags: 0

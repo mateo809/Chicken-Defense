@@ -117,7 +117,6 @@ GameObject:
   - component: {fileID: 8645090363728962988}
   - component: {fileID: 6411296421928397935}
   - component: {fileID: 7341631644434206672}
-  - component: {fileID: 3068420828149264923}
   m_Layer: 6
   m_Name: ThirdEnemy
   m_TagString: Enemy
@@ -268,20 +267,6 @@ MonoBehaviour:
   Damage: 0
   Coins: 0
   EnemyPrefab: {fileID: 0}
---- !u!114 &3068420828149264923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3871324095154313045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b65c6611118faa42af8f58b2d91c226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 3392780153272437685}
-  mainCamera: {fileID: 6817175678312861653, guid: ce2a290ba50b31b49ab89102103d5bbd, type: 3}
 --- !u!1001 &181426770894884050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -441,14 +426,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1018648163358631474, guid: 7b9c3d59895fc1747977d7160f8defd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4085941093889107527}
   m_SourcePrefab: {fileID: 100100000, guid: 7b9c3d59895fc1747977d7160f8defd1, type: 3}
+--- !u!1 &911549790200261344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1018648163358631474, guid: 7b9c3d59895fc1747977d7160f8defd1, type: 3}
+  m_PrefabInstance: {fileID: 181426770894884050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4085941093889107527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911549790200261344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b65c6611118faa42af8f58b2d91c226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3392780153272437685}
+  mainCamera: {fileID: 6817175678312861653, guid: ce2a290ba50b31b49ab89102103d5bbd, type: 3}
 --- !u!114 &1163122329198125685 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1342269739266895527, guid: 7b9c3d59895fc1747977d7160f8defd1, type: 3}
   m_PrefabInstance: {fileID: 181426770894884050}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 911549790200261344}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
