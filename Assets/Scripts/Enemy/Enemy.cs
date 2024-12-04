@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(SpawnGold());
         GameManager.instance.Score += 5;
-        GameManager.instance.Coins += enemyComponent.Coins; // Access Coins from EnemyComponent
+        GameManager.instance.Coins += enemyComponent.Coins; 
         GameManager.instance.enemiesRemaining--;
         Destroy(gameObject);
     }
