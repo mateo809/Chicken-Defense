@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject IAObjectPrefab;  
     public GameObject _button;
     [SerializeField] private GameObject _waveFeedback;
+    [SerializeField] private GameObject _warningPanel;
 
     public float TimeBetweenWaves = 0f;
     private float _countdown;
@@ -88,8 +89,8 @@ public class GameManager : MonoBehaviour
         _countdown = TimeBetweenWaves;
 
         if (WaveNumber % 5 == 0)
-        {
-            IncreaseEnemyStats(0.25f);
+        {        
+            //IncreaseEnemyStats(0.25f);
         }
 
         int enemiesToSpawn = WaveNumber * 10;
@@ -102,6 +103,13 @@ public class GameManager : MonoBehaviour
         }
 
         waveInProgress = false;
+    }
+
+    private IEnumerator WarningPanel()
+    {
+        _warningPanel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        _warningPanel.gameObject.SetActive(false);
     }
 
     public void SpawnEnemy()
@@ -133,6 +141,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (WaveNumber == 5)
+                StartCoroutine(WarningPanel());
             _waveFeedback.gameObject.SetActive(true);
             _timer.text = Mathf.Ceil(_countdown).ToString();
         }

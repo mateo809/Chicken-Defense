@@ -16,5 +16,5 @@ MonoBehaviour:
   enemyName: "Fermier en col\xE8re"
   speed: 8
   health: 250
-  damage: 15
+  damage: 30
   enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}

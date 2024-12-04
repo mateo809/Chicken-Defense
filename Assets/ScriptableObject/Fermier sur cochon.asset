@@ -15,6 +15,6 @@ MonoBehaviour:
   Coins: 15
   enemyName: Cochon
   speed: 12
-  health: 125
-  damage: 10
+  health: 150
+  damage: 19
   enemyPrefab: {fileID: 3871324095154313045, guid: 74c378865e2935643a3c99ed128839af, type: 3}
