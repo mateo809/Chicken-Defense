@@ -3048,6 +3048,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca631878175ae44885969dd054d4829, type: 3}
+--- !u!4 &562193756 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
+  m_PrefabInstance: {fileID: 707778850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &578001762 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6822317976907101291, guid: f41b1954e353dca4295aeb955f0682a6, type: 3}
@@ -3931,7 +3936,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8917269787925903560, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1956593609}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4860884733252827142, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
       insertIndex: -1
@@ -4492,9 +4500,9 @@ RectTransform:
   - {fileID: 69062317}
   - {fileID: 1905682831}
   - {fileID: 1266885218}
-  - {fileID: 1764545556}
   - {fileID: 1161982185}
   - {fileID: 1257040251}
+  - {fileID: 1764545556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5315,7 +5323,6 @@ MonoBehaviour:
   rangeText: {fileID: 626737719}
   upgradeButton: {fileID: 1228701914}
   destroyButton: {fileID: 1275135978}
-  upgradeIcon: {fileID: 0}
 --- !u!1 &953114338
 GameObject:
   m_ObjectHideFlags: 0
@@ -5421,51 +5428,42 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1655077857}
   _objectToAddToDictionary:
   - {fileID: 1569122449}
-  - {fileID: 1653802486}
-  - {fileID: 1254307150}
-  - {fileID: 685993180}
-  - {fileID: 1915781113}
-  - {fileID: 578001762}
-  - {fileID: 1414075546}
-  - {fileID: 1161982185}
   - {fileID: 905858167}
-  - {fileID: 1892398580}
-  - {fileID: 1526867594}
-  - {fileID: 1775859827}
-  - {fileID: 304539222}
   - {fileID: 1905682831}
+  - {fileID: 1892398580}
+  - {fileID: 304539222}
+  - {fileID: 1775859827}
+  - {fileID: 1526867594}
+  - {fileID: 1638970475}
+  - {fileID: 1653802486}
+  - {fileID: 685993180}
+  - {fileID: 1254307150}
   infoTexts:
-  - Health Bar
-  - An elegant and unusual weapon, the Feather Cannon fires giant, colorful feathers
-    that stun enemies with softness, followed by a powerful shockwave. Perfect for
-    distracting and disorienting foes.
-  - The Artillery Poulalier is a sturdy tower equipped with a powerful cannon. It
-    fires explosive projectiles at long range, dealing heavy damage to enemy waves
-    while slowing their progress. Perfect for controlling strategic areas and breaking
-    enemy formations.
-  - The Artillery Poulalier is a sturdy tower equipped with a powerful cannon. It
-    fires explosive projectiles at long range, dealing heavy damage to enemy waves
-    while slowing their progress. Perfect for controlling strategic areas and breaking
-    enemy formations.
-  - The Artillery Poulalier is a sturdy tower equipped with a powerful cannon. It
-    fires explosive projectiles at long range, dealing heavy damage to enemy waves
-    while slowing their progress. Perfect for controlling strategic areas and breaking
-    enemy formations.
-  - The Artillery Poulalier is a sturdy tower equipped with a powerful cannon. It
-    fires explosive projectiles at long range, dealing heavy damage to enemy waves
-    while slowing their progress. Perfect for controlling strategic areas and breaking
-    enemy formations.
-  - The Artillery Poulalier is a sturdy tower equipped with a powerful cannon. It
-    fires explosive projectiles at long range, dealing heavy damage to enemy waves
-    while slowing their progress. Perfect for controlling strategic areas and breaking
-    enemy formations.
-  - Horde d'ennemies
-  - Timer enter Wave
-  - Number Actual wave
-  - Monney
-  - Actual Remmaining enemy for past to the next wave
-  - Score
-  - Heros Skill
+  - Protect the chicken coop! The health bar represents the health of your coop.
+    If it reaches zero, you lose the game. Defend it at all costs to avoid defeat!
+  - A 10 second cooldown between waves allows you to prepare and reorganize your
+    defenses before the next wave of enemies arrives.
+  - The heroic chicken calls its plane to fly over the area and drop a rain of rocks.
+    These projectiles deal light damage over a large area, perfect for disrupting
+    enemies and clearing grouped zones.
+  - This logo, featuring a feather, simply shows the number of waves you have passed.
+  - This is your current score
+  - Enemy Remaining enter wave
+  - This is your current gold, the in-game currency you can spend in the shop to
+    upgrade and buy items.
+  - Use your gold to buy towers and strengthen your defenses against enemies.
+  - 'The Chicken Cannon is a special unit that fires explosive chickens at enemies.
+    Perfect for dealing damage while adding a touch of humor to the battlefield. 
+    Stats:  Price: 150 gold Attack Speed: 1 shot per second Damage: 20 per chicken
+    Range: 15 units'
+  - 'The Big Feather Cannon is a powerful artillery that launches massive feathered
+    projectiles at enemies. Perfect for dealing heavy damage over a medium range. 
+    Stats:  Price: 200 gold Attack Speed: 1.25 shots per second Damage: 75 per shot
+    Range: 10 units'
+  - 'The Chicken Coop Artillery is a powerful mortar that launches explosive eggs
+    at long range. Perfect for attacking enemies from a distance and dealing significant
+    damage over a wide area.  Stats:  Price: 175 gold Attack Speed: 3 shots per second
+    Damage: 50 per shot Range: 25 units '
   fixedPosition: {x: 250, y: 450}
 --- !u!4 &977860488
 Transform:
@@ -8016,8 +8014,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8953,7 +8951,7 @@ GameObject:
   - component: {fileID: 1655077860}
   - component: {fileID: 1655077859}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Panel Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8999,8 +8997,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2696406136083413281, guid: f3e6a4a22e2056f4d88695188bc39a6e, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: -7020922751645015488, guid: f0b4dc9b8fe390b4597ba9c379657d44, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -10280,13 +10278,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956593608}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.162312, y: -2.1781955, z: 40.472275}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.6324625, y: -0.4356391, z: 8.094455}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 814771278}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 562193756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959495687
 GameObject:
@@ -11109,6 +11107,5 @@ SceneRoots:
   - {fileID: 977860488}
   - {fileID: 7729966027429358930}
   - {fileID: 1395997857}
-  - {fileID: 1143654673}
   - {fileID: 707778850}
-  - {fileID: 1956593609}
+  - {fileID: 1143654673}
