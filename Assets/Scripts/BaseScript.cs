@@ -26,7 +26,15 @@ public class BaseScript : MonoBehaviour
 
     public IEnumerator TakeDamageEnemy()
     {
-        GameManager.instance.Score -= 30;
+        int damage = 30;
+        if (GameManager.instance.Score >= damage)
+        {
+            GameManager.instance.Score -= damage;
+        }
+        else
+        {
+            GameManager.instance.Score = 0; 
+        }
         LifeSlider.GetComponent<Slider>().value -= 30;
         yield return null;
 

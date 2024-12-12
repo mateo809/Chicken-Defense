@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        int enemiesToSpawn = WaveNumber * 10;
+        int enemiesToSpawn = WaveNumber * 5;
         enemiesRemaining = enemiesToSpawn;
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -142,10 +142,15 @@ public class GameManager : MonoBehaviour
         {
             enemiesRemaining = 0;
         }
-        _coins.text = Coins.ToString();
+        if (Coins > 0)
+        {
+            _coins.text = Coins.ToString();
+        }
+
         _wave.text = "Wave : " + WaveNumber.ToString();
         _enemyRemaining.text = enemiesRemaining.ToString();
         _scorePlayer.text = Score.ToString();
+
         if (waveInProgress || enemiesRemaining > 0)
         {
             _waveFeedback.gameObject.SetActive(false);
@@ -160,6 +165,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public Material GetRangePreviewMaterial(bool isValidPlacement)
     {
         return isValidPlacement ? GreenPreview : RedPreview;
@@ -167,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseEnemyStats(float percentage, EnemyComponent enemyComponent)
     {
-        enemyComponent.Health += 150;
+        enemyComponent.Health +=(enemyComponent.Health * (1 + percentage));
         enemyComponent.Damage = (enemyComponent.Damage * (1 + percentage));
         enemyComponent.Speed *= (1 + percentage);
 

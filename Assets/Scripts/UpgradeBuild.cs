@@ -13,7 +13,7 @@ public class UpgradeBuild : MonoBehaviour
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private Button upgradeButton;
-    [SerializeField] private Button destroyButton; 
+    [SerializeField] private Button destroyButton;
 
     private BuildingComponent selectedBuilding;
 
@@ -24,7 +24,7 @@ public class UpgradeBuild : MonoBehaviour
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(UpgradeBuilding);
         if (destroyButton != null)
-            destroyButton.onClick.AddListener(DestroyBuilding); 
+            destroyButton.onClick.AddListener(DestroyBuilding);
     }
 
     private void Update()
@@ -48,7 +48,7 @@ public class UpgradeBuild : MonoBehaviour
                     if (selectedBuilding == buildingComponent && infoPanel.activeSelf)
                     {
                         Debug.Log("Same building clicked, panel is already open.");
-                        return; 
+                        return;
                     }
 
                     selectedBuilding = buildingComponent;
@@ -67,13 +67,13 @@ public class UpgradeBuild : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
             infoPanel.SetActive(false);
             selectedBuilding = null;
+            ResetUpgradeButton(); 
         }
     }
-
 
     private void LoadBuildingData(BuildingComponent instanceData)
     {
@@ -87,7 +87,16 @@ public class UpgradeBuild : MonoBehaviour
             attackSpeedText.text = $"Attack Speed: {instanceData.Attackspeed:F2}";
             damageText.text = $"Damage: {instanceData.Damage}";
             rangeText.text = $"Range: {instanceData.Range:F2}";
-            upgradeButton.interactable = GameManager.instance.Coins >= instanceData.Cost;
+            if (instanceData.Level >= 10)
+            {
+                upgradeButton.interactable = false;
+                upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Max Level";
+            }
+            else
+            {
+                upgradeButton.interactable = GameManager.instance.Coins >= instanceData.Cost;
+                upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade";
+            }
         }
         else
         {
@@ -99,8 +108,10 @@ public class UpgradeBuild : MonoBehaviour
     {
         if (selectedBuilding == null || selectedBuilding.buildingData == null) return;
         BuildingComponent instanceData = selectedBuilding;
-        if (instanceData.Level == 10)
+
+        if (instanceData.Level >= 10)
         {
+            Debug.Log("Maximum level reached, cannot upgrade further.");
             return;
         }
 
@@ -129,8 +140,18 @@ public class UpgradeBuild : MonoBehaviour
         BuildingComponent instanceData = selectedBuilding;
         GameManager.instance.Coins += instanceData.Cost;
         Debug.Log($"Destroying building {selectedBuilding.buildingID}");
-        Destroy(selectedBuilding.gameObject); 
-        selectedBuilding = null; 
-        infoPanel.SetActive(false); 
+        Destroy(selectedBuilding.gameObject);
+        selectedBuilding = null;
+        infoPanel.SetActive(false);
+        ResetUpgradeButton(); 
+    }
+
+    private void ResetUpgradeButton()
+    {
+        if (upgradeButton != null)
+        {
+            upgradeButton.interactable = false;
+            upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade";
+        }
     }
 }
