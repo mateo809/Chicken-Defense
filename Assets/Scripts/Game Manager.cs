@@ -99,12 +99,14 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            SpawnEnemy();
+            float ik = ((int)(WaveNumber / 5)) * 0.25f;
+            SpawnEnemy(ik);
             yield return new WaitForSeconds(spawnDelay);
         }
 
         waveInProgress = false;
     }
+
 
     private IEnumerator WarningPanel()
     {
@@ -113,29 +115,27 @@ public class GameManager : MonoBehaviour
         _warningPanel.gameObject.SetActive(false);
     }
 
-    public void SpawnEnemy()
-    {
+    public void SpawnEnemy(float IncrementStat)
+    {      
         if (enemyTypes.Length > 0)
         {
             int randomIndex = Random.Range(0, enemyTypes.Length);
             EnemyTypeScriptableObject chosenType = enemyTypes[randomIndex];
             GameObject spawnedEnemy = Instantiate(chosenType.enemyPrefab, _spawner.position, _spawner.rotation);
-
-            // Use EnemyComponent instead of directly modifying the ScriptableObject
             EnemyComponent enemyComponent = spawnedEnemy.GetComponent<EnemyComponent>();
             if (enemyComponent != null)
             {
-                enemyComponent.InitializeStats(chosenType); // Initialize stats using the ScriptableObject
+                enemyComponent.InitializeStats(chosenType);
+                IncreaseEnemyStats(IncrementStat, enemyComponent);
             }
 
             Enemy enemyScript = spawnedEnemy.GetComponent<Enemy>();
             if (enemyScript != null)
             {
-                enemyScript.enemyComponent = enemyComponent; // Link the EnemyComponent
+                enemyScript.enemyComponent = enemyComponent;
             }
         }
     }
-
     private void UpdateUI()
     {
         if (enemiesRemaining <= 0)
@@ -165,17 +165,15 @@ public class GameManager : MonoBehaviour
         return isValidPlacement ? GreenPreview : RedPreview;
     }
 
-    private void IncreaseEnemyStats(float percentage)
+    private void IncreaseEnemyStats(float percentage, EnemyComponent enemyComponent)
     {
-        foreach (var enemyType in enemyTypes)
-        {
-            enemyType.health = Mathf.RoundToInt(enemyType.health * (1 + percentage));
-            enemyType.damage = Mathf.RoundToInt(enemyType.damage * (1 + percentage));
-            enemyType.speed *= (1 + percentage);
-        }
+        enemyComponent.Health += 150;
+        enemyComponent.Damage = (enemyComponent.Damage * (1 + percentage));
+        enemyComponent.Speed *= (1 + percentage);
 
-        Debug.Log("Enemy stats increased by " + (percentage * 100) + "% for wave " + WaveNumber);
+        Debug.Log("Active enemy stats increased by " + (percentage * 100) + "% for wave " + WaveNumber);
     }
+
 
     public void SpawnAI()
     {

@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public EnemyComponent enemyComponent; // Reference to the EnemyComponent class
+    public EnemyComponent enemyComponent; 
 
     private Tourelle tourelle;
 
-    public int currentHealth;
+    public float currentHealth;
 
     [Header("Health Bar Settings")]
     public Slider healthBar;
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     {
         if (enemyComponent != null)
         {
-            enemyComponent.InitializeStats(enemyComponent.enemyData); // Ensure stats are initialized
+            // enemyComponent.InitializeStats(enemyComponent.enemyData);
 
             currentHealth = enemyComponent.Health;
             transform.name = enemyComponent.EnemyName;

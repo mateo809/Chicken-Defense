@@ -5268,7 +5268,7 @@ MonoBehaviour:
   aiSpawnInterval: 45
   spawnDelay: 0.25
   Coins: 2147483647
-  WaveNumber: 0
+  WaveNumber: 4
   enemiesRemaining: 0
   Score: 0
   RedPreview: {fileID: 2100000, guid: 72518cd09238131478107c684dfb15ee, type: 2}

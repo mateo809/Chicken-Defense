@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class EnemyComponent : MonoBehaviour
 {
-    public int enemyID; // Optional unique identifier
     public EnemyTypeScriptableObject enemyData;
 
     public string EnemyName;
     public float Speed;
-    public int Health;
-    public int Damage;
+    public float Health;
+    public float Damage;
     public int Coins;
     public GameObject EnemyPrefab;
 

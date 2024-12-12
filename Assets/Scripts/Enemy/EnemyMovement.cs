@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public EnemyComponent enemyComponent; // Reference to the EnemyComponent
+    public EnemyComponent enemyComponent; 
 
     [SerializeField] private float _speed;
     private Enemy enemy;
@@ -16,8 +16,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (enemyComponent != null)
         {
-            enemyComponent.InitializeStats(enemyComponent.enemyData); // Ensure stats are initialized
-            _speed = enemyComponent.Speed; // Access speed from EnemyComponent
+            //enemyComponent.InitializeStats(enemyComponent.enemyData); 
+            _speed = enemyComponent.Speed; 
         }
         _target = Waypoint.points[0];
     }
