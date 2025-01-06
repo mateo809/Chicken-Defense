@@ -3956,6 +3956,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1724303867171497587, guid: 4a47629e9abfa8345bce6c87c7d22c52, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5347,7 +5351,7 @@ MonoBehaviour:
   aiSpawnInterval: 45
   spawnDelay: 0.25
   Coins: 2147483647
-  WaveNumber: 4
+  WaveNumber: 0
   enemiesRemaining: 0
   Score: 0
   RedPreview: {fileID: 2100000, guid: 72518cd09238131478107c684dfb15ee, type: 2}
@@ -5361,7 +5365,7 @@ Transform:
   m_GameObject: {fileID: 948231213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.033823, y: -69.75883, z: -0.9065635}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5402,6 +5406,7 @@ MonoBehaviour:
   rangeText: {fileID: 626737719}
   upgradeButton: {fileID: 1228701914}
   destroyButton: {fileID: 1275135978}
+  level10IconPrefab: {fileID: 0}
 --- !u!1 &953114338
 GameObject:
   m_ObjectHideFlags: 0

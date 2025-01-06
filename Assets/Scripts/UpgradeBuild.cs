@@ -14,6 +14,9 @@ public class UpgradeBuild : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button destroyButton;
+    [SerializeField] private GameObject level10IconPrefab;  
+    private GameObject level10IconInstance;             
+
 
     private BuildingComponent selectedBuilding;
 
