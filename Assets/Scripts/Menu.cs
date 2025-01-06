@@ -29,4 +29,10 @@ public class Menu : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Select Level");
+    }
 }

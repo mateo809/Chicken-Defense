@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Panel;
 
     public Transform LifeSlider;
+
+    private int starsEarned = 0;
 
     private void Awake()
     {
@@ -201,25 +204,30 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        if(WaveNumber == 11)
+        if (WaveNumber == 2 && !waveInProgress && enemiesRemaining == 0)
         {
             Panel.gameObject.SetActive(true);
             Time.timeScale = 0f;
             if (LifeSlider.GetComponent<Slider>().value <= 100)
             {
                 Start1.gameObject.SetActive(true);
+                starsEarned = 1;
             }
-            if (LifeSlider.GetComponent<Slider>().value <=150)
+            if (LifeSlider.GetComponent<Slider>().value <= 200)
             {
                 Start1.gameObject.SetActive(true);
                 Start2.gameObject.SetActive(true);
+                starsEarned = 2;
             }
-            if(LifeSlider.GetComponent<Slider>().value >= 200)
+            if (LifeSlider.GetComponent<Slider>().value >= 250)
             {
                 Start1.gameObject.SetActive(true);
                 Start2.gameObject.SetActive(true);
                 Start3.gameObject.SetActive(true);
+                starsEarned = 3;
             }
+            PlayerPrefs.SetInt("LevelStars", starsEarned);
+            PlayerPrefs.Save();
         }
     }
 }
