@@ -4958,7 +4958,6 @@ GameObject:
   - component: {fileID: 4613742884318795356}
   - component: {fileID: 2628127338261008483}
   - component: {fileID: 4540433821511749899}
-  - component: {fileID: -4988340574882057566}
   m_Layer: 0
   m_Name: HammerExplosion
   m_TagString: Untagged
@@ -5100,18 +5099,3 @@ MonoBehaviour:
   Xplosion: {fileID: 1237870669895136310, guid: 960d5c25a2b942f4a9e1c14877178d06, type: 3}
   timer: 3
   PlayOnStart: 1
---- !u!114 &-4988340574882057566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266378106977556716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeecf3568974de54ba423dc95520bc3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionRadius: 8
-  lifetime: 0.1
-  damage: 0

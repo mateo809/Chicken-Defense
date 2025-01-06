@@ -16,7 +16,7 @@ MonoBehaviour:
   Cost: 250
   sprite: {fileID: 21300000, guid: 8591b2783f284524593a981347c8a26a, type: 3}
   BuildName: Big hammer
-  Attackspeed: 1.5
+  Attackspeed: 0.5
   Damage: 40
   Range: 12
   BuildPrefab: {fileID: 7519499908186100243, guid: f525a744442e9dd4fa2793f2843aa96d, type: 3}

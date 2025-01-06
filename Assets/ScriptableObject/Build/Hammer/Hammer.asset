@@ -16,7 +16,7 @@ MonoBehaviour:
   Cost: 125
   sprite: {fileID: 21300000, guid: 643afc849dff5164fbff799204bf4858, type: 3}
   BuildName: Hammer
-  Attackspeed: 1.5
+  Attackspeed: 0.5
   Damage: 20
   Range: 12
   BuildPrefab: {fileID: 6310280978019483684, guid: a2222f3187669c44cbeac045191329b7, type: 3}

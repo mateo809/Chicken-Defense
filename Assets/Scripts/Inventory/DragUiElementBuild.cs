@@ -52,11 +52,20 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 collider.enabled = false;
             }
+
+            // Désactiver le script Hammer pendant le preview
+            Hammer hammerScript = _previewPrefabToInstantiate.GetComponent<Hammer>();
+            if (hammerScript != null)
+            {
+                hammerScript.enabled = false;
+            }
+
             CreateRangePreview();
         }
         _buildPlane = new Plane(Vector3.up, Vector3.zero);
         InventoryBuildManager.Instance.FadeUIElement(0f);
     }
+
 
     public void OnDrag(PointerEventData data)
     {
@@ -143,17 +152,23 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                     Quaternion rotation = _previewPrefabToInstantiate != null
                         ? _previewPrefabToInstantiate.transform.rotation
                         : Quaternion.identity;
-                    InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, position, rotation);
+
+                    GameObject placedObject = InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, position, rotation);
+
+                    // Réactiver Hammer après le placement
+                    Hammer hammerScript = placedObject.GetComponent<Hammer>();
+                    if (hammerScript != null)
+                    {
+                        hammerScript.enabled = true;
+                    }
+
                     GameManager.instance.Coins -= tourelle.Cost;
                     Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
-                }
-                else if(hit.collider.CompareTag("Map"))
-                {
-                    return;
                 }
             }
         }
     }
+
 
     private void CreateRangePreview()
     {

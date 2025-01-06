@@ -60,10 +60,18 @@ public class InventoryBuildManager : MonoBehaviour
         }
     }
 
-    public void CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
+    public GameObject CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         GameObject _previewObject = Instantiate(prefab, position, rotation);
 
+        // Désactiver temporairement Hammer s'il est présent
+        Hammer hammerScript = _previewObject.GetComponent<Hammer>();
+        if (hammerScript != null)
+        {
+            hammerScript.enabled = false;
+        }
+
+        // Initialisation des stats de la Tourelle
         Tourelle tourelle = _previewObject.GetComponent<Tourelle>();
         if (tourelle != null)
         {
@@ -83,8 +91,9 @@ public class InventoryBuildManager : MonoBehaviour
         {
             Debug.LogError("Tourelle component not found on the prefab.");
         }
-    }
 
+        return _previewObject; // Retourne l'objet placé
+    }
 
 
     public void FadeUIElement(float targetAlpha)

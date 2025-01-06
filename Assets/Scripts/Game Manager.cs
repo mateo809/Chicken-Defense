@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,6 +46,14 @@ public class GameManager : MonoBehaviour
 
     private bool waveInProgress = false;
 
+    [SerializeField] private GameObject Start1;
+    [SerializeField] private GameObject Start2;
+    [SerializeField] private GameObject Start3;
+
+    [SerializeField] private GameObject Panel;
+
+    public Transform LifeSlider;
+
     private void Awake()
     {
         if (instance == null)
@@ -77,7 +86,7 @@ public class GameManager : MonoBehaviour
             aiSpawnTimer = 0f;
             SpawnAI();
         }
-
+        Win();
         UpdateUI();
         Debug.Log(enemiesRemaining);
     }
@@ -147,7 +156,7 @@ public class GameManager : MonoBehaviour
             _coins.text = Coins.ToString();
         }
 
-        _wave.text = "Wave : " + WaveNumber.ToString();
+        _wave.text = "Wave : " + WaveNumber.ToString() + "/10";
         _enemyRemaining.text = enemiesRemaining.ToString();
         _scorePlayer.text = Score.ToString();
 
@@ -187,6 +196,30 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(IAObjectPrefab, _spawner.position, Quaternion.identity);
             Debug.Log("IA spawn!");
+        }
+    }
+
+    public void Win()
+    {
+        if(WaveNumber == 11)
+        {
+            Panel.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+            if (LifeSlider.GetComponent<Slider>().value <= 100)
+            {
+                Start1.gameObject.SetActive(true);
+            }
+            if (LifeSlider.GetComponent<Slider>().value <=150)
+            {
+                Start1.gameObject.SetActive(true);
+                Start2.gameObject.SetActive(true);
+            }
+            if(LifeSlider.GetComponent<Slider>().value >= 200)
+            {
+                Start1.gameObject.SetActive(true);
+                Start2.gameObject.SetActive(true);
+                Start3.gameObject.SetActive(true);
+            }
         }
     }
 }

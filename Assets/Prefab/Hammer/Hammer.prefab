@@ -408,7 +408,7 @@ Transform:
   m_GameObject: {fileID: 1854435432861435842}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.10606836, y: 2.0011387, z: 12.063601}
+  m_LocalPosition: {x: -0.10606836, y: 3.15, z: 12.063601}
   m_LocalScale: {x: 4.5, y: 1.5, z: 4.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -482,9 +482,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -840,15 +840,10 @@ MonoBehaviour:
   AttackRadius: 5
   Damage: 50
   AttackCooldown: 1
-  HammerScriptable: {fileID: 11400000, guid: e8542619c3fc4fa4ba9cb6547190b827, type: 2}
-  BuildingComponent: {fileID: 987005746282647958}
-  _hitEffectPrefab: {fileID: 5266378106977556716, guid: deddd3541bf66474d8e1aeab8d89a466, type: 3}
-  _hitEffectTarget: {fileID: 7022838863861601793}
-  _target: {fileID: 1854435432861435842}
-  _targetEffects: {fileID: 2807250489568399051}
+  _hitEffectPrefab: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
+  _targetEffects: {fileID: 1854435432861435842}
+  _target: {fileID: 2807250489568399051}
   objectToRotate: {fileID: 1537313107114189820}
-  boxCollider: {fileID: 1227032308617832494}
-  ColliderOffset: {x: 0, y: 0, z: 2}
 --- !u!114 &1756166035938844725
 MonoBehaviour:
   m_ObjectHideFlags: 0
