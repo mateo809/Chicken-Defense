@@ -5654,7 +5654,7 @@ MonoBehaviour:
   TimeBetweenWaves: 3
   aiSpawnInterval: 45
   spawnDelay: 0.25
-  Coins: 2147483647
+  Coins: 1000
   WaveNumber: 0
   enemiesRemaining: 0
   Score: 0

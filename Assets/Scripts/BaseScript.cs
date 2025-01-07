@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BaseScript : MonoBehaviour
@@ -49,7 +50,7 @@ public class BaseScript : MonoBehaviour
 
         if (LifeSlider.GetComponent<Slider>().value <= 0)
         {
-            Debug.Log("loadScene");
+            SceneManager.LoadScene("Lose");
         }
     }
 

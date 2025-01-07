@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        if (WaveNumber == 2 && !waveInProgress && enemiesRemaining == 0)
+        if (WaveNumber == 10 && !waveInProgress && enemiesRemaining == 0)
         {
             Panel.gameObject.SetActive(true);
             Time.timeScale = 0f;

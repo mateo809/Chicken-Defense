@@ -10,6 +10,7 @@ TagManager:
   - Xplosion
   - Map
   - Poule
+  - Flag1
   layers:
   - Default
   - TransparentFX
