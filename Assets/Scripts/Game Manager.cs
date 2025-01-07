@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public Material GreenPreview;
 
     private bool waveInProgress = false;
+    private bool gameStarted = false;
 
     [SerializeField] private GameObject Start1;
     [SerializeField] private GameObject Start2;
@@ -53,10 +54,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject Panel;
 
+    [SerializeField] private GameObject _pausePanel;
+
+    [SerializeField] private GameObject _buttonReady;
+
     public Transform LifeSlider;
 
     private int starsEarned = 0;
 
+    public TextMeshProUGUI feedbackText;
+    public TextMeshProUGUI SecondFeedbackText;
     private void Awake()
     {
         if (instance == null)
@@ -73,6 +80,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!gameStarted) return;
+
         if (!waveInProgress && enemiesRemaining <= 0)
         {
             _countdown -= Time.deltaTime;
@@ -92,6 +101,18 @@ public class GameManager : MonoBehaviour
         Win();
         UpdateUI();
         Debug.Log(enemiesRemaining);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Menu.instance.PauseGame();
+            _pausePanel.SetActive(true);
+        }
+    }
+
+    public void StartGame() 
+    {
+        gameStarted = true;
+        _buttonReady.gameObject.SetActive(false);
     }
 
     public IEnumerator SpawnWave()
@@ -148,7 +169,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (enemiesRemaining <= 0)
         {
@@ -228,6 +249,45 @@ public class GameManager : MonoBehaviour
             }
             PlayerPrefs.SetInt("LevelStars", starsEarned);
             PlayerPrefs.Save();
+        }
+    }
+
+
+    public void ShowFeedback(string message)
+    {
+        if (feedbackText != null)
+        {
+            feedbackText.text = message;
+            feedbackText.gameObject.SetActive(true);
+
+            Invoke(nameof(HideFeedback), 1f);
+        }
+    }
+
+    private void HideFeedback()
+    {
+        if (feedbackText != null)
+        {
+            feedbackText.gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowSecondFeedback(string message)
+    {
+        if (SecondFeedbackText != null)
+        {
+            SecondFeedbackText.text = message;
+            SecondFeedbackText.gameObject.SetActive(true);
+
+            Invoke(nameof(HideSecondFeedback), 0.5f);
+        }
+    }
+
+    private void HideSecondFeedback()
+    {
+        if (SecondFeedbackText != null)
+        {
+            SecondFeedbackText.gameObject.SetActive(false);
         }
     }
 }

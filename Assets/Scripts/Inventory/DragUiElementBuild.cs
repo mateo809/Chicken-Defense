@@ -52,8 +52,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 collider.enabled = false;
             }
-
-            // Désactiver le script Hammer pendant le preview
             Hammer hammerScript = _previewPrefabToInstantiate.GetComponent<Hammer>();
             if (hammerScript != null)
             {
@@ -154,8 +152,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                         : Quaternion.identity;
 
                     GameObject placedObject = InventoryBuildManager.Instance.CreateObjectOnMap(_prefabToInstantiate, position, rotation);
-
-                    // Réactiver Hammer après le placement
                     Hammer hammerScript = placedObject.GetComponent<Hammer>();
                     if (hammerScript != null)
                     {
@@ -163,6 +159,8 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                     }
 
                     GameManager.instance.Coins -= tourelle.Cost;
+                    GameManager.instance.ShowFeedback("-" + tourelle.Cost);
+                    GameManager.instance.UpdateUI();
                     Debug.Log("Bâtiment posé, argent restant : " + GameManager.instance.Coins);
                 }
             }

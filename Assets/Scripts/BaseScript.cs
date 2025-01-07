@@ -10,6 +10,8 @@ public class BaseScript : MonoBehaviour
 
     public Transform LifeSlider;
 
+    [SerializeField] private GameObject _Hitdamage;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,6 +39,9 @@ public class BaseScript : MonoBehaviour
             GameManager.instance.Score = 0; 
         }
         LifeSlider.GetComponent<Slider>().value -= 30;
+        _Hitdamage.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        _Hitdamage.SetActive(false);
         yield return null;
 
         if(GameManager.instance.Score < 0)

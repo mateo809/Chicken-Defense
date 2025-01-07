@@ -3,6 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    public static Menu instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     public void LanceGame()
     {
         Time.timeScale = 1f;

@@ -86,7 +86,7 @@ public class UpgradeBuild : MonoBehaviour
 
             buildNameText.text = $"Name: {instanceData.BuildName} (Lvl {instanceData.Level})";
             buildingImage.sprite = instanceData.sprite;
-            costText.text = $"Cost: {instanceData.Cost} Gold";
+            costText.text = $"Price: {instanceData.Cost} Gold";
             attackSpeedText.text = $"Attack Speed: {instanceData.Attackspeed:F2}";
             damageText.text = $"Damage: {instanceData.Damage}";
             rangeText.text = $"Range: {instanceData.Range:F2}";
@@ -120,6 +120,7 @@ public class UpgradeBuild : MonoBehaviour
 
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
+            GameManager.instance.ShowFeedback("-" + instanceData.Cost);
             GameManager.instance.Coins -= instanceData.Cost;
             instanceData.Level++;
             instanceData.Cost *= 2;
@@ -142,6 +143,7 @@ public class UpgradeBuild : MonoBehaviour
         if (selectedBuilding == null) return;
         BuildingComponent instanceData = selectedBuilding;
         GameManager.instance.Coins += instanceData.Cost;
+        GameManager.instance.ShowSecondFeedback("+" + instanceData.Cost);
         Debug.Log($"Destroying building {selectedBuilding.buildingID}");
         Destroy(selectedBuilding.gameObject);
         selectedBuilding = null;
