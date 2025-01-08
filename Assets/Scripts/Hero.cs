@@ -17,7 +17,7 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private Vector3 originalPointerPosition;
 
     [SerializeField] private GameObject _ClickablePanel; 
-    [SerializeField] private TextMeshProUGUI _cooldownText; 
+    [SerializeField] private TextMeshProUGUI _cooldownText;
 
     [SerializeField] private float _cooldownTime = 15.0f; 
     private float _lastUseTime = -Mathf.Infinity;
@@ -81,6 +81,15 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 particleSystem.Simulate(3.9f, true, true);
                 particleSystem.Pause();
             }
+
+            if (_previewPrefabToInstantiate.transform.childCount > 6)
+            {
+                Transform seventhChild = _previewPrefabToInstantiate.transform.GetChild(7);
+                if (seventhChild != null)
+                {
+                    seventhChild.gameObject.SetActive(true);
+                }
+            }
         }
     }
 
@@ -95,6 +104,14 @@ public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData data)
     {
+        if (_previewPrefabToInstantiate.transform.childCount > 6)
+        {
+            Transform seventhChild = _previewPrefabToInstantiate.transform.GetChild(6);
+            if (seventhChild != null)
+            {
+                seventhChild.gameObject.SetActive(false);
+            }
+        }
         if (Time.time - _lastUseTime < _cooldownTime)
         {
             Debug.Log("Action is on cooldown!");

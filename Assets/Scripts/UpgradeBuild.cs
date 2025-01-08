@@ -68,6 +68,7 @@ public class UpgradeBuild : MonoBehaviour
                     LoadBuildingData(selectedBuilding);
                     infoPanel.SetActive(true);
                 }
+
             }
         }
         else
@@ -75,6 +76,11 @@ public class UpgradeBuild : MonoBehaviour
             infoPanel.SetActive(false);
             selectedBuilding = null;
             ResetUpgradeButton(); 
+        }
+        if (hit.collider.gameObject.CompareTag("Jeep"))
+        {
+            GameManager.instance._tutoPanel.SetActive(true);
+            GameManager.instance._colonel.gameObject.SetActive(false);
         }
     }
 
