@@ -11,6 +11,9 @@ TagManager:
   - Map
   - Poule
   - Flag1
+  - Flag2
+  - Flag
+  - Jeep
   layers:
   - Default
   - TransparentFX

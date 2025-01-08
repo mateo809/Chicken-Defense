@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
     public static Menu instance;
+    //[SerializeField] private GameObject _fade;
+    
 
     private void Awake()
     {
@@ -43,5 +46,34 @@ public class Menu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Select Level");
+    }
+
+    public void DestroyFade()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void LaunchSelectLevel()
+    {
+        StartCoroutine(AnimSelectLevel());
+    }
+
+    private IEnumerator AnimSelectLevel()
+    {
+        gameObject.SetActive (true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Select Level");
+    }
+
+    public void LaunchMainmenu()
+    {
+        StartCoroutine(AnimMainMenu());
+    }
+
+    private IEnumerator AnimMainMenu()
+    {
+        gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Main Menu");
     }
 }

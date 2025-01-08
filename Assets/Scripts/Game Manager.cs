@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
     [SerializeField] private TextMeshProUGUI _scorePlayer;
 
+    private bool isFastMode = false;
+    [SerializeField] private Button speedToggleButton;
+    [SerializeField] private TextMeshProUGUI speedButtonText;
+
     public RectTransform _shopButton;
 
     public TextMeshProUGUI _InstructionRota;
@@ -81,35 +85,24 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (!gameStarted) return;
-
-        if (!waveInProgress && enemiesRemaining <= 0)
-        {
-            _countdown -= Time.deltaTime;
-
-            if (_countdown <= 0)
-            {
-                Score += 50;
-                StartCoroutine(SpawnWave());
-            }
-        }
-        aiSpawnTimer += Time.deltaTime;
-        if (aiSpawnTimer >= aiSpawnInterval)
-        {
-            aiSpawnTimer = 0f;
-            SpawnAI();
-        }
-        Win();
-        UpdateUI();
-        Debug.Log(enemiesRemaining);
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Menu.instance.PauseGame();
             _pausePanel.SetActive(true);
         }
+        aiSpawnTimer += Time.deltaTime;
+
+        if (aiSpawnTimer >= aiSpawnInterval)
+        {
+            aiSpawnTimer = 0f;
+            SpawnAI();
+        }
+
+        Win();
+        UpdateUI();
     }
 
-    public void StartGame() 
+    public void StartGame()
     {
         gameStarted = true;
         _buttonReady.gameObject.SetActive(false);
@@ -149,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void SpawnEnemy(float IncrementStat)
-    {      
+    {
         if (enemyTypes.Length > 0)
         {
             int randomIndex = Random.Range(0, enemyTypes.Length);
@@ -206,7 +199,7 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseEnemyStats(float percentage, EnemyComponent enemyComponent)
     {
-        enemyComponent.Health +=(enemyComponent.Health * (1 + percentage));
+        enemyComponent.Health += (enemyComponent.Health * (1 + percentage));
         enemyComponent.Damage = (enemyComponent.Damage * (1 + percentage));
         enemyComponent.Speed *= (1 + percentage);
 
@@ -228,7 +221,7 @@ public class GameManager : MonoBehaviour
         if (WaveNumber == 10 && !waveInProgress && enemiesRemaining == 0)
         {
             Panel.gameObject.SetActive(true);
-            Time.timeScale = 0f;
+            waveInProgress = true;
             if (LifeSlider.GetComponent<Slider>().value <= 100)
             {
                 Start1.gameObject.SetActive(true);
@@ -249,6 +242,7 @@ public class GameManager : MonoBehaviour
             }
             PlayerPrefs.SetInt("LevelStars", starsEarned);
             PlayerPrefs.Save();
+            UpdateTotalStars();
         }
     }
 
@@ -290,4 +284,28 @@ public class GameManager : MonoBehaviour
             SecondFeedbackText.gameObject.SetActive(false);
         }
     }
+
+    public void UpdateTotalStars()
+    {
+        int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+        totalStars += starsEarned;
+        PlayerPrefs.SetInt("TotalStars", totalStars);
+        PlayerPrefs.Save();
+        Debug.Log("TotalStars updated to: " + totalStars);
+    }
 }
+
+//    public void ToggleSpeedMode()
+//    {
+//        isFastMode = !isFastMode;
+
+//        Time.timeScale = isFastMode ? 2.0f : 1.0f;
+
+//        if (speedButtonText != null)
+//        {
+//            speedButtonText.text = isFastMode ? "Speed x1" : "Speed x2";
+//        }
+
+//        Debug.Log(isFastMode ? "Mode vitesse x2 activé" : "Mode vitesse normale activé");
+//    }
+//}

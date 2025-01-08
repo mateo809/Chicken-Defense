@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a955c5772fef2fb45b5149163d4c2321, type: 3}
   m_Name: "Fermier en col\xE8re"
   m_EditorClassIdentifier: 
-  Coins: 5
+  Coins: 10
   enemyName: "Fermier en col\xE8re"
   speed: 8
-  health: 250
+  health: 190
   damage: 30
-  enemyPrefab: {fileID: 7212939479402425556, guid: 8bbb710ae837dc14c93511a8e918085c, type: 3}
+  enemyPrefab: {fileID: 1122699634237035765, guid: c5f7cad89a32db2458b84ae6e0ecb11d, type: 3}
