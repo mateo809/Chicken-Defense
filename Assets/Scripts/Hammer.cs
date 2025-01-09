@@ -18,7 +18,7 @@ public class Hammer : MonoBehaviour
     private float _nextAttackTime = 0f;
     private bool _isAttacking = false;
     private Quaternion _originalRotation;
-    private float _attackDuration = 0.5f;
+    private float _attackDuration = 0.15f;
 
     private void Awake()
     {
@@ -38,26 +38,31 @@ public class Hammer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") && Time.time >= _nextAttackTime)
+        if (other.CompareTag("Enemy") && Time.time >= _nextAttackTime && !_isAttacking)
         {
             _target = other.gameObject; 
             _targetEffects.GetComponent<MeshRenderer>().enabled = false;
+            _isAttacking = true;
             Attack();
         }
     }
 
+    private void Update()
+    {
+        _target.GetComponentInChildren<BoxCollider>().enabled = GetComponent<BoxCollider>().enabled;
+    }
+
     private void Attack()
     {
-        if (_isAttacking)
-            return;
 
-        _isAttacking = true;
         _nextAttackTime = Time.time + AttackCooldown;
         StartCoroutine(PerformHammerStrike());
     }
 
     private IEnumerator PerformHammerStrike()
     {
+        Debug.Log("attack hammer");
+
         Quaternion targetRotation = _originalRotation * Quaternion.Euler(70f, 0f, 0f);
         float elapsedTime = 0f;
         while (elapsedTime < _attackDuration)
@@ -90,7 +95,6 @@ public class Hammer : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(0.2f);
         elapsedTime = 0f;
         while (elapsedTime < _attackDuration)
         {

@@ -45,6 +45,10 @@ public class UpgradeBuild : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Build"))
             {
+                if (GameManager.instance.shopOpen)
+                {
+                    return;
+                }
                 BuildingComponent buildingComponent = hit.collider.GetComponent<BuildingComponent>();
                 if (buildingComponent != null)
                 {
@@ -127,8 +131,8 @@ public class UpgradeBuild : MonoBehaviour
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
             GameManager.instance.ShowFeedback("-" + instanceData.Cost);
-            GameManager.instance.UpdateUI();
             GameManager.instance.Coins -= instanceData.Cost;
+            GameManager.instance.UpdateUI();
             instanceData.Level++;
             instanceData.Cost *= 2;
             instanceData.Attackspeed *= 0.9f;

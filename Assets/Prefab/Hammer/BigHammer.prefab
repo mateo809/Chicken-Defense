@@ -2474,10 +2474,10 @@ GameObject:
   - component: {fileID: 5953096469806791974}
   - component: {fileID: 5128284901210605842}
   - component: {fileID: 2131864318970275995}
-  - component: {fileID: 25650135037090642}
   - component: {fileID: 8270876966971636312}
   - component: {fileID: -7898736876618083190}
   - component: {fileID: 6817953224130872479}
+  - component: {fileID: 9220160806208787451}
   m_Layer: 0
   m_Name: BigHammer
   m_TagString: Build
@@ -2539,38 +2539,10 @@ MonoBehaviour:
   tourelle: {fileID: 11400000, guid: 2ece4eb2727e9024886043abe2344254, type: 2}
   BuildingComponent: {fileID: -7898736876618083190}
   projectilePrefab: {fileID: 0}
-  ParticuleShoot: {fileID: 0}
   firePoint: {fileID: 0}
   enemyTag: Enemy
   Range: 0
   TurnSpeed: 0
---- !u!54 &25650135037090642
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7519499908186100243}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 84
-  m_CollisionDetection: 0
 --- !u!65 &8270876966971636312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2590,8 +2562,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.239157, y: 2.5195844, z: 3.2539806}
+  m_Center: {x: 0.21640503, y: 0.7597922, z: 0.02005434}
 --- !u!114 &-7898736876618083190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2626,6 +2598,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Canvas: {fileID: 4558884548928167923}
+--- !u!54 &9220160806208787451
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7519499908186100243}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7661692414338177529
 GameObject:
   m_ObjectHideFlags: 0

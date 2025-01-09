@@ -52,11 +52,6 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 collider.enabled = false;
             }
-            Hammer hammerScript = _previewPrefabToInstantiate.GetComponent<Hammer>();
-            if (hammerScript != null)
-            {
-                hammerScript.enabled = false;
-            }
 
             CreateRangePreview();
         }

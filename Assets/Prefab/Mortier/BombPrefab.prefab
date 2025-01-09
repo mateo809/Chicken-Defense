@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionRadius: 8
   lifetime: 5
-  damage: 50
+  damage: 40
   BuildingComponent: {fileID: 6949007870579985601}
 --- !u!114 &6949007870579985601
 MonoBehaviour:

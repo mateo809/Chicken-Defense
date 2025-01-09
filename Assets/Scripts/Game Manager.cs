@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI feedbackText;
     public TextMeshProUGUI SecondFeedbackText;
+    public bool shopOpen = false;
     private void Awake()
     {
         if (instance == null)
@@ -83,6 +84,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Menu.instance.PauseGame();
+            _pausePanel.SetActive(true);
+        }
+
         if (!gameStarted) return;
 
         if (!waveInProgress && enemiesRemaining <= 0)
@@ -104,12 +111,6 @@ public class GameManager : MonoBehaviour
         Win();
         UpdateUI();
         Debug.Log(enemiesRemaining);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Menu.instance.PauseGame();
-            _pausePanel.SetActive(true);
-        }
     }
 
     public void StartGame() 
@@ -182,11 +183,7 @@ public class GameManager : MonoBehaviour
         {
             enemiesRemaining = 0;
         }
-        if (Coins > 0)
-        {
-            _coins.text = Coins.ToString();
-        }
-
+        _coins.text = Coins.ToString();
         _wave.text = "Wave : " + WaveNumber.ToString() + "/10";
         _enemyRemaining.text = enemiesRemaining.ToString();
         _scorePlayer.text = Score.ToString();
@@ -232,7 +229,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-        if (WaveNumber == 10 && !waveInProgress && enemiesRemaining == 0)
+        if (WaveNumber == 10 && !waveInProgress && enemiesRemaining <= 0)
         {
             Time.timeScale = 0f;
             Panel.gameObject.SetActive(true);
@@ -314,5 +311,15 @@ public class GameManager : MonoBehaviour
         isFastMode = !isFastMode;
 
         Time.timeScale = isFastMode ? 2.0f : 1.0f; 
+    }
+
+    public void Openshop()
+    {
+        shopOpen = true;
+    }
+
+    public void Closeshop()
+    {
+        shopOpen = false;
     }
 }

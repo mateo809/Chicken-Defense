@@ -63,11 +63,6 @@ public class InventoryBuildManager : MonoBehaviour
     public GameObject CreateObjectOnMap(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         GameObject _previewObject = Instantiate(prefab, position, rotation);
-        Hammer hammerScript = _previewObject.GetComponent<Hammer>();
-        if (hammerScript != null)
-        {
-            hammerScript.enabled = false;
-        }
         Tourelle tourelle = _previewObject.GetComponent<Tourelle>();
         if (tourelle != null)
         {

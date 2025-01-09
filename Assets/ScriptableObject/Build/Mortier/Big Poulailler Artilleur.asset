@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de6e455c8bc8b9478ee1c915c38ffe8, type: 3}
   m_Name: Big Poulailler Artilleur
   m_EditorClassIdentifier: 
+  Level: 0
   Cost: 400
   sprite: {fileID: 21300000, guid: e0d42854a13ef264aa2a06ae3c13fcd0, type: 3}
   BuildName: Poulailler Artilleur

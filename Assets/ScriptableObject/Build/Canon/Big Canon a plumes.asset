@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Big Canon a plumes
   m_EditorClassIdentifier: 
   Level: 0
-  Cost: 200
+  Cost: 300
   sprite: {fileID: 21300000, guid: 3b0ee9dcd1713af42be63c4df436ae96, type: 3}
   BuildName: Big Canon a plumes
   Attackspeed: 1.5
