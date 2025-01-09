@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _speed;
     private Enemy enemy;
 
+    [SerializeField] private Animator _animator;
+
     private Transform _target;
     private int _waypointindex = 0;
 
@@ -34,6 +36,7 @@ public class EnemyMovement : MonoBehaviour
                 if (objectToDestroy != null)
                 {
                     Destroy(objectToDestroy);
+                    _animator.SetBool("Run" ,true);
                     objectToDestroy = null;
                 }
             }

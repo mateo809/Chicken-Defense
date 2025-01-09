@@ -8,5 +8,6 @@ public class EnemyTypeScriptableObject : ScriptableObject
     public float speed;
     public int health;
     public int damage;
-    public GameObject enemyPrefab;  
+    public GameObject enemyPrefab;
+    public float SpawnDelay = 0.25f;
 }

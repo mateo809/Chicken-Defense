@@ -13,7 +13,7 @@ public class Tourelle : MonoBehaviour
     private BuildingScriptableObject tourelleCopy;
 
     public GameObject projectilePrefab;
-    public GameObject ParticuleShoot;
+    //public GameObject ParticuleShoot;
     public Transform firePoint;
 
     public string enemyTag = "Enemy";
@@ -119,14 +119,14 @@ public class Tourelle : MonoBehaviour
             return;
         }
         GameObject projectileGO = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        GameObject particule = Instantiate(ParticuleShoot, firePoint.position, firePoint.rotation);
+       // GameObject particule = Instantiate(ParticuleShoot, firePoint.position, firePoint.rotation);
         Projectile projectile = projectileGO.GetComponent<Projectile>();
         if (projectile != null)
         {
             projectile.Seek(target);
             if (tourelleCopy != null)
             {
-                Destroy(particule, 1f);
+               // Destroy(particule, 1f);
                 projectile.damage = tourelleCopy.Damage;
             }
         }

@@ -39409,12 +39409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95778b3f94bb89a42974623cb97985e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 75
   _animPlane: {fileID: 0}
   _prefabToInstantiate: {fileID: 0}
   _ClickablePanel: {fileID: 0}
   _cooldownText: {fileID: 0}
-  _cooldownTime: 15
+  _cooldownTime: 20
   Decollage: {fileID: 0}
 --- !u!1001 &4507340500915757609
 PrefabInstance:

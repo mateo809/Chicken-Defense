@@ -17,4 +17,5 @@ MonoBehaviour:
   speed: 10
   health: 90
   damage: 15
-  enemyPrefab: {fileID: 8696189743804109500, guid: 12cf0ffffc8b4af46bbcfc549853b63b, type: 3}
+  enemyPrefab: {fileID: 1122699634237035765, guid: c26f33c46f57a5c4f8f653d2c1a8fea5, type: 3}
+  SpawnDelay: 0.65

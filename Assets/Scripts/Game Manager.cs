@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -40,7 +38,6 @@ public class GameManager : MonoBehaviour
     private float _countdown;
     public float aiSpawnInterval = 45f;
     private float aiSpawnTimer = 0f;
-    [SerializeField] private float spawnDelay = 0.5f;
 
     public int Coins = 0;
     public int WaveNumber = 0;
@@ -139,8 +136,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             float ik = ((int)(WaveNumber / 5)) * 0.25f;
-            SpawnEnemy(ik);
-            yield return new WaitForSeconds(spawnDelay);
+            var enemy = SpawnEnemy(ik);
+            yield return new WaitForSeconds(enemy.SpawnDelay);
         }
 
         waveInProgress = false;
@@ -154,7 +151,7 @@ public class GameManager : MonoBehaviour
         _warningPanel.gameObject.SetActive(false);
     }
 
-    public void SpawnEnemy(float IncrementStat)
+    public EnemyTypeScriptableObject SpawnEnemy(float IncrementStat)
     {      
         if (enemyTypes.Length > 0)
         {
@@ -173,7 +170,11 @@ public class GameManager : MonoBehaviour
             {
                 enemyScript.enemyComponent = enemyComponent;
             }
+
+            return chosenType;
         }
+
+        return null;
     }
     public void UpdateUI()
     {

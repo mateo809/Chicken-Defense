@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Hero : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public int damage = 30;
+    public int damage;
     private Transform _target;
 
     [SerializeField] private GameObject _animPlane; 

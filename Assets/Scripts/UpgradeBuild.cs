@@ -127,6 +127,7 @@ public class UpgradeBuild : MonoBehaviour
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
             GameManager.instance.ShowFeedback("-" + instanceData.Cost);
+            GameManager.instance.UpdateUI();
             GameManager.instance.Coins -= instanceData.Cost;
             instanceData.Level++;
             instanceData.Cost *= 2;
@@ -154,7 +155,8 @@ public class UpgradeBuild : MonoBehaviour
         Destroy(selectedBuilding.gameObject);
         selectedBuilding = null;
         infoPanel.SetActive(false);
-        ResetUpgradeButton(); 
+        ResetUpgradeButton();
+        GameManager.instance.UpdateUI();
     }
 
     private void ResetUpgradeButton()

@@ -61,6 +61,7 @@ public class Menu : MonoBehaviour
     private IEnumerator AnimSelectLevel()
     {
         gameObject.SetActive (true);
+        Time.timeScale = 1f;
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Select Level");
     }
@@ -73,7 +74,8 @@ public class Menu : MonoBehaviour
     private IEnumerator AnimMainMenu()
     {
         gameObject.SetActive(true);
+        Time.timeScale = 1f;
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 }
