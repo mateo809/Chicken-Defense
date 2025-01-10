@@ -40,7 +40,6 @@ public class Hammer : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && Time.time >= _nextAttackTime && !_isAttacking)
         {
-            _target = other.gameObject; 
             _targetEffects.GetComponent<MeshRenderer>().enabled = false;
             _isAttacking = true;
             Attack();
@@ -83,7 +82,7 @@ public class Hammer : MonoBehaviour
             GameObject hitEffect = Instantiate(_hitEffectPrefab, _targetEffects.transform.position, Quaternion.identity);
             Destroy(hitEffect, 0.2f);
         }
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, AttackRadius);
+        Collider[] hitEnemies = Physics.OverlapSphere(_target.transform.position, AttackRadius);
         foreach (var enemyCollider in hitEnemies)
         {
             if (enemyCollider.CompareTag("Enemy"))
@@ -91,6 +90,7 @@ public class Hammer : MonoBehaviour
                 Enemy enemy = enemyCollider.GetComponent<Enemy>();
                 if (enemy != null)
                 {
+                    enemy.healthBar.gameObject.SetActive(true);
                     enemy.TakeDamage((int)Damage);
                 }
             }
@@ -110,13 +110,12 @@ public class Hammer : MonoBehaviour
             objectToRotate.transform.rotation = _originalRotation;
         }
         _isAttacking = false;
-        _target = null;
     }
 
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, AttackRadius);
+        Gizmos.DrawWireSphere(_target.transform.position, AttackRadius);
     }
 }

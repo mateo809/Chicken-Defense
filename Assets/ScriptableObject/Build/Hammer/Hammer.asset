@@ -18,5 +18,5 @@ MonoBehaviour:
   BuildName: Hammer
   Attackspeed: 1
   Damage: 50
-  Range: 12
+  Range: 2.5
   BuildPrefab: {fileID: 6310280978019483684, guid: a2222f3187669c44cbeac045191329b7, type: 3}

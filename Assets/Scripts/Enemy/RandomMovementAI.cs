@@ -38,6 +38,7 @@ public class RandomMovementAI : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject.CompareTag("Poule"))
             {
                 GameManager.instance.Coins += 100;
+                GameManager.instance.ShowSecondFeedback("+" + 100);
                 Destroy(gameObject);
                 Debug.Log("Objet désactivé !");
             }

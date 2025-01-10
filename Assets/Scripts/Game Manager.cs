@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public TextMeshProUGUI SecondFeedbackText;
     public bool shopOpen = false;
+
+    public GameObject insufficientFundsIndicator;
     private void Awake()
     {
         if (instance == null)
@@ -128,7 +130,7 @@ public class GameManager : MonoBehaviour
         if (WaveNumber % 5 == 0)
         {
             StartCoroutine(WarningPanel());
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
         }
 
         int enemiesToSpawn = WaveNumber * 5;
@@ -148,7 +150,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator WarningPanel()
     {
         _warningPanel.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         _warningPanel.gameObject.SetActive(false);
     }
 
@@ -195,8 +197,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (WaveNumber == 5)
-                StartCoroutine(WarningPanel());
             _waveFeedback.gameObject.SetActive(true);
             _timer.text = Mathf.Ceil(_countdown).ToString();
         }
@@ -236,17 +236,20 @@ public class GameManager : MonoBehaviour
             waveInProgress = true;
             if (LifeSlider.GetComponent<Slider>().value <= 100)
             {
+                shopOpen = true;
                 Start1.gameObject.SetActive(true);
                 starsEarned = 1;
             }
-            if (LifeSlider.GetComponent<Slider>().value <= 200)
+            else if (LifeSlider.GetComponent<Slider>().value <= 200)
             {
+                shopOpen = true;
                 Start1.gameObject.SetActive(true);
                 Start2.gameObject.SetActive(true);
                 starsEarned = 2;
             }
-            if (LifeSlider.GetComponent<Slider>().value >= 250)
+            else if (LifeSlider.GetComponent<Slider>().value >= 250)
             {
+                shopOpen = true;
                 Start1.gameObject.SetActive(true);
                 Start2.gameObject.SetActive(true);
                 Start3.gameObject.SetActive(true);
@@ -300,7 +303,7 @@ public class GameManager : MonoBehaviour
     public void UpdateTotalStars()
     {
         int totalStars = PlayerPrefs.GetInt("TotalStars", 0); 
-        totalStars += starsEarned;
+        totalStars = Mathf.Max(totalStars, starsEarned);
         PlayerPrefs.SetInt("TotalStars", totalStars); 
         PlayerPrefs.Save(); 
         Debug.Log("TotalStars updated to: " + totalStars);
@@ -322,4 +325,20 @@ public class GameManager : MonoBehaviour
     {
         shopOpen = false;
     }
+
+
+    private IEnumerator DisableAfterDelay(GameObject target, float delay)
+    {
+        Debug.Log("Désactivation commencée, attente de " + delay + " secondes.");
+        Time.timeScale = 1.0f;
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Désactivation de l'objet : " + target.name);
+        target.SetActive(false);
+    }
+
+    public void DeleteObjectPrviewNoMoney()
+    {
+        StartCoroutine(DisableAfterDelay(insufficientFundsIndicator, 0.75f));
+    }
+
 }

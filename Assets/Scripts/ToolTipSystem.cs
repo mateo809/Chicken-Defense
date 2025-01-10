@@ -10,9 +10,8 @@ public class TooltipScript : MonoBehaviour
 
     public TextMeshProUGUI tooltipText;
     public GameObject tooltipPanel;
-    public Dictionary<RectTransform, GameObject> objectsToTooltip = new();
-    [SerializeField] private List<RectTransform> _objectToAddToDictionary = new();
-    public List<string> infoTexts;
+    public List<ToolTypeElements> toolTypes;
+    public Dictionary<RectTransform, string> objectsToTooltip = new();
     public Vector2 fixedPosition = new Vector2(100, 250);
 
     private void Awake()
@@ -21,9 +20,9 @@ public class TooltipScript : MonoBehaviour
         {
             instance = this;
         }
-        foreach (var objectToAdd in _objectToAddToDictionary)
+        foreach (var objectToAdd in toolTypes) 
         {
-            objectsToTooltip.Add(objectToAdd, objectToAdd.gameObject);
+            objectsToTooltip.Add(objectToAdd.rectTransform, objectToAdd.toolName);
         }
     }
     private void Start()
@@ -40,7 +39,7 @@ public class TooltipScript : MonoBehaviour
             {
                 int index = GetIndexFromDictionaryKey(rectTransform);
                 tooltipPanel.SetActive(true);
-                tooltipText.text = infoTexts[index];
+                tooltipText.text = objectsToTooltip[rectTransform];
                 tooltipPanel.transform.position = fixedPosition;
 
                 isHovering = true;
@@ -70,5 +69,12 @@ public class TooltipScript : MonoBehaviour
             index++;
         }
         return -1; // Si la clé n'existe pas
+    }
+
+    [System.Serializable]
+    public struct ToolTypeElements
+    {
+        public RectTransform rectTransform;
+        [TextArea] public string toolName;
     }
 }

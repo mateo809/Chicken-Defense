@@ -119,6 +119,11 @@ public class FlagManager : MonoBehaviour
 
         int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
         _starText.text = totalStars.ToString() + "/ 6";
+
+        if(totalStars >= 6)
+        {
+            totalStars = 6;
+        }
     }
 
     public void LoadScene1()

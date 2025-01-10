@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (currentHealth <= 0)
+            return;
+
         if (tourelle != null)
         {
             BuildingComponent buildingComponent = tourelle.GetComponent<BuildingComponent>();

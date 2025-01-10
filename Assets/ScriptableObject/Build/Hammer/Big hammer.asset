@@ -18,5 +18,5 @@ MonoBehaviour:
   BuildName: Big hammer
   Attackspeed: 1.5
   Damage: 90
-  Range: 12
+  Range: 2.5
   BuildPrefab: {fileID: 7519499908186100243, guid: f525a744442e9dd4fa2793f2843aa96d, type: 3}

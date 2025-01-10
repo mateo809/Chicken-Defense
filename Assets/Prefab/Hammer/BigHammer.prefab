@@ -1835,8 +1835,8 @@ Transform:
   m_GameObject: {fileID: 6074039248657058418}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3704, y: 2.17, z: -0.6052}
-  m_LocalScale: {x: 3.3585346, y: 1.5, z: 3.2895}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 1.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7728537414935659581}
@@ -2516,7 +2516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86e289e08cae1949b5142f318403f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRadius: 5
+  AttackRadius: 2.5
   Damage: 50
   AttackCooldown: 1
   _hitEffectPrefab: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
@@ -3223,8 +3223,8 @@ Transform:
   m_GameObject: {fileID: 8634146595046339289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21213675, y: 0.0022773743, z: 4.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 4.63}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2576523690597621967}

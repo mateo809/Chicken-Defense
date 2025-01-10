@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicSoundVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 6843888030164925303, guid: 06f4568f88fbe1c41be32bd1c96608bd, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 981734399}
+    - target: {fileID: 6843888030164925303, guid: 06f4568f88fbe1c41be32bd1c96608bd, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMusicChanged
+      objectReference: {fileID: 0}
     - target: {fileID: 7523966931204126347, guid: 06f4568f88fbe1c41be32bd1c96608bd, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -976,6 +984,14 @@ PrefabInstance:
     - target: {fileID: 2505367577849972348, guid: 3e938bd1904e6e948a5a58ebe24d70a4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.019800186
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040241553152030239, guid: 3e938bd1904e6e948a5a58ebe24d70a4, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 981734399}
+    - target: {fileID: 3040241553152030239, guid: 3e938bd1904e6e948a5a58ebe24d70a4, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMasterChanged
       objectReference: {fileID: 0}
     - target: {fileID: 3191138978175306158, guid: 3e938bd1904e6e948a5a58ebe24d70a4, type: 3}
       propertyPath: m_Pivot.x
@@ -2596,6 +2612,14 @@ PrefabInstance:
     - target: {fileID: 8127716324251601182, guid: 0950c25271de9c842b6a74a8751eb8dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -218.83534
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494960559847243565, guid: 0950c25271de9c842b6a74a8751eb8dc, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 981734399}
+    - target: {fileID: 8494960559847243565, guid: 0950c25271de9c842b6a74a8751eb8dc, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSFXChanged
       objectReference: {fileID: 0}
     - target: {fileID: 8496733711486483646, guid: 0950c25271de9c842b6a74a8751eb8dc, type: 3}
       propertyPath: m_AnchorMax.y

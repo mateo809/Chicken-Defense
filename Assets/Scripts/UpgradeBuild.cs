@@ -36,6 +36,11 @@ public class UpgradeBuild : MonoBehaviour
         {
             DetectBuildingClick();
         }
+
+        if (infoPanel.activeSelf && selectedBuilding != null)
+        {
+            UpdateUpgradeButtonState();
+        }
     }
 
     private void DetectBuildingClick()
@@ -74,17 +79,19 @@ public class UpgradeBuild : MonoBehaviour
                 }
 
             }
+
+            if (hit.collider.gameObject.CompareTag("Jeep"))
+            {
+                GameManager.instance._tutoPanel.SetActive(true);
+                GameManager.instance._colonel.gameObject.SetActive(false);
+            }
         }
+
         else
         {
             infoPanel.SetActive(false);
             selectedBuilding = null;
             ResetUpgradeButton(); 
-        }
-        if (hit.collider.gameObject.CompareTag("Jeep"))
-        {
-            GameManager.instance._tutoPanel.SetActive(true);
-            GameManager.instance._colonel.gameObject.SetActive(false);
         }
     }
 
@@ -134,7 +141,7 @@ public class UpgradeBuild : MonoBehaviour
             GameManager.instance.Coins -= instanceData.Cost;
             GameManager.instance.UpdateUI();
             instanceData.Level++;
-            instanceData.Cost *= 2;
+            instanceData.Cost += instanceData.Cost/2;
             instanceData.Attackspeed *= 0.9f;
             instanceData.Damage += 5;
             instanceData.Range += 0.25f;
@@ -169,6 +176,22 @@ public class UpgradeBuild : MonoBehaviour
         {
             upgradeButton.interactable = false;
             upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade";
+        }
+    }
+
+    private void UpdateUpgradeButtonState()
+    {
+        if (selectedBuilding != null && selectedBuilding.buildingData != null)
+        {
+            if (selectedBuilding.Level < 10)
+            {
+                upgradeButton.interactable = GameManager.instance.Coins >= selectedBuilding.Cost;
+            }
+            else
+            {
+                upgradeButton.interactable = false;
+                upgradeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Max Level";
+            }
         }
     }
 }

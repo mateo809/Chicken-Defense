@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,7 +35,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (Input.GetKeyDown(KeyCode.R) && _previewPrefabToInstantiate != null)
         {
-            _previewPrefabToInstantiate.transform.Rotate(Vector3.up, 90f);  
+            _previewPrefabToInstantiate.transform.Rotate(Vector3.up, 90f);
         }
     }
     public void OnBeginDrag(PointerEventData data)
@@ -91,6 +92,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             Destroy(_previewPrefabToInstantiate);
             Destroy(_rangePreviewSphere);
             TryPlaceObject(eventData);
+            GameManager.instance.Closeshop();
         }
         InventoryBuildManager.Instance.FadeUIElement(1f);
         GameManager.instance.BuildPanel.SetActive(false);
@@ -119,7 +121,7 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 if (hit.collider.CompareTag("Floor"))
                 {
-                    isValidPlacement = true; 
+                    isValidPlacement = true;
                 }
                 if (hit.collider.CompareTag("Map"))
                 {
@@ -160,8 +162,22 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
                 }
             }
         }
+        else
+        {
+            if (GameManager.instance.insufficientFundsIndicator != null)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+                if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
+                {
+                    Vector3 position = hit.point;
+                    position.y = 4;
+                    GameManager.instance.insufficientFundsIndicator.transform.position = position;
+                    GameManager.instance.insufficientFundsIndicator.SetActive(true);
+                    GameManager.instance.DeleteObjectPrviewNoMoney();
+                }
+            }
+        }
     }
-
 
     private void CreateRangePreview()
     {
@@ -187,4 +203,5 @@ public class DragUIElementBuild : MonoBehaviour, IBeginDragHandler, IDragHandler
             _rangePreviewSphere.transform.position = _previewPrefabToInstantiate.transform.position;
         }
     }
+
 }
