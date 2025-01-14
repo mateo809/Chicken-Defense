@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class Tourelle : MonoBehaviour
 {
+    public BuildingScriptableObject tourelle;  
+    public BuildingComponent BuildingComponent; 
+    private BuildingScriptableObject tourelleCopy;
 
     private Transform target;
     public Transform partToRotate;
+    public Transform firePoint;
 
     private Enemy enemy;
-    public BuildingScriptableObject tourelle;  
-    public BuildingComponent BuildingComponent; 
-
-    private BuildingScriptableObject tourelleCopy;
 
     public GameObject projectilePrefab;
-    //public GameObject ParticuleShoot;
-    public Transform firePoint;
 
     public string enemyTag = "Enemy";
 

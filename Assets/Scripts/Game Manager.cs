@@ -7,69 +7,65 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("Enemy Settings")]
     [SerializeField] private EnemyTypeScriptableObject[] enemyTypes;
-
     [SerializeField] private Transform _spawner;
+    [Header("UI References")]
     [SerializeField] private TextMeshProUGUI _wave;
     [SerializeField] private TextMeshProUGUI _coins;
     [SerializeField] private TextMeshProUGUI _timer;
     [SerializeField] private TextMeshProUGUI _enemyRemaining;
     [SerializeField] private TextMeshProUGUI _scorePlayer;
 
-    private bool isFastMode = false; 
-    [SerializeField] private Button speedToggleButton; 
-
-    public RectTransform _shopButton;
-
+    public TextMeshProUGUI feedbackText;
+    public TextMeshProUGUI SecondFeedbackText;
     public TextMeshProUGUI _InstructionRota;
     public TextMeshProUGUI _InstructionMissile;
-
+    [Header("UI Panels")]
+    [SerializeField] private GameObject Start1;
+    [SerializeField] private GameObject Start2;
+    [SerializeField] private GameObject Start3;
+    [SerializeField] private GameObject Panel;
+    [SerializeField] private GameObject _pausePanel;
+    [SerializeField] private GameObject _buttonReady;
+    [Header("Gameplay Settings")]
+    [SerializeField] private Button speedToggleButton; 
+    public RectTransform _shopButton;
     public GameObject BuildPanel;
     public GameObject HeroPanel;
     public GameObject Gold;
     public GameObject IAObjectPrefab;
     public GameObject _button;
-
+    public GameObject _tutoPanel;
+    public GameObject _colonel;
+    public GameObject insufficientFundsIndicator;
     [SerializeField] private GameObject _waveFeedback;
     [SerializeField] private GameObject _warningPanel;
-    public GameObject _tutoPanel;
 
+    private bool isFastMode = false;
+    private bool waveInProgress = false;
+    private bool gameStarted = false;
+    public bool shopOpen = false;
+    [Header("Wave Settings")]
     public float TimeBetweenWaves = 0f;
     private float _countdown;
     public float aiSpawnInterval = 45f;
     private float aiSpawnTimer = 0f;
-
-    public int Coins = 0;
-    public int WaveNumber = 0;
     public int enemiesRemaining = 0;
+    public int WaveNumber = 0;
+    [Header("Player Stats")]
+    public int Coins = 0;
     public int Score = 0;
-
+    private int starsEarned = 0;
+    [Header("Materials")]
     public Material RedPreview;
     public Material GreenPreview;
-
-    private bool waveInProgress = false;
-    private bool gameStarted = false;
-
-    [SerializeField] private GameObject Start1;
-    [SerializeField] private GameObject Start2;
-    [SerializeField] private GameObject Start3;
-
-    [SerializeField] private GameObject Panel;
-
-    [SerializeField] private GameObject _pausePanel;
-
-    [SerializeField] private GameObject _buttonReady;
-    public GameObject _colonel;
-
+    [Header("Other References")]
     public Transform LifeSlider;
-
-    private int starsEarned = 0;
-
-    public TextMeshProUGUI feedbackText;
-    public TextMeshProUGUI SecondFeedbackText;
-    public bool shopOpen = false;
-
-    public GameObject insufficientFundsIndicator;
+    public AudioSource audioSource;
+    public AudioSource DestroySound;
+    public AudioClip DestroyButtonClicked;
+    public AudioClip buttonClickSound;
     private void Awake()
     {
         if (instance == null)
@@ -234,20 +230,23 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             Panel.gameObject.SetActive(true);
             waveInProgress = true;
-            if (LifeSlider.GetComponent<Slider>().value <= 100)
+
+            float lifeValue = LifeSlider.GetComponent<Slider>().value;
+
+            if (lifeValue <= 100)
             {
                 shopOpen = true;
                 Start1.gameObject.SetActive(true);
                 starsEarned = 1;
             }
-            else if (LifeSlider.GetComponent<Slider>().value <= 200)
+            else if (lifeValue > 100 && lifeValue <= 200)
             {
                 shopOpen = true;
                 Start1.gameObject.SetActive(true);
                 Start2.gameObject.SetActive(true);
                 starsEarned = 2;
             }
-            else if (LifeSlider.GetComponent<Slider>().value >= 250)
+            else if (lifeValue > 200)
             {
                 shopOpen = true;
                 Start1.gameObject.SetActive(true);
@@ -255,11 +254,13 @@ public class GameManager : MonoBehaviour
                 Start3.gameObject.SetActive(true);
                 starsEarned = 3;
             }
+
             PlayerPrefs.SetInt("LevelStars", starsEarned);
             PlayerPrefs.Save();
             UpdateTotalStars();
         }
     }
+
 
 
     public void ShowFeedback(string message)
@@ -302,8 +303,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateTotalStars()
     {
-        int totalStars = PlayerPrefs.GetInt("TotalStars", 0); 
-        totalStars = Mathf.Max(totalStars, starsEarned);
+        int totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+        totalStars += starsEarned;
         PlayerPrefs.SetInt("TotalStars", totalStars); 
         PlayerPrefs.Save(); 
         Debug.Log("TotalStars updated to: " + totalStars);

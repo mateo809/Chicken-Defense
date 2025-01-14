@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class UpgradeBuild : MonoBehaviour
 {
@@ -137,6 +138,12 @@ public class UpgradeBuild : MonoBehaviour
 
         if (GameManager.instance.Coins >= instanceData.Cost)
         {
+
+            if (GameManager.instance.audioSource != null && GameManager.instance.buttonClickSound != null)
+            {
+                GameManager.instance.audioSource.PlayOneShot(GameManager.instance.buttonClickSound);
+            }
+
             GameManager.instance.ShowFeedback("-" + instanceData.Cost);
             GameManager.instance.Coins -= instanceData.Cost;
             GameManager.instance.UpdateUI();
@@ -168,6 +175,10 @@ public class UpgradeBuild : MonoBehaviour
         infoPanel.SetActive(false);
         ResetUpgradeButton();
         GameManager.instance.UpdateUI();
+        if (GameManager.instance.DestroySound != null && GameManager.instance.DestroyButtonClicked != null)
+        {
+            GameManager.instance.DestroySound.PlayOneShot(GameManager.instance.DestroyButtonClicked);
+        }
     }
 
     private void ResetUpgradeButton()

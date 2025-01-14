@@ -22,6 +22,7 @@ public class FlagManager : MonoBehaviour
     [SerializeField] private GameObject _panel;
     [SerializeField] private GameObject _starActualFlag;
     [SerializeField] private GameObject _secondStar;
+    [SerializeField] private GameObject _levelEffect;
 
     [SerializeField] private TextMeshProUGUI _starText;
 
@@ -123,6 +124,15 @@ public class FlagManager : MonoBehaviour
         if(totalStars >= 6)
         {
             totalStars = 6;
+        }
+
+        if (totalStars > 2 && totalStars <= 3)
+        {
+            _levelEffect.SetActive(true); 
+        }
+        else
+        {
+            _levelEffect.SetActive(false); 
         }
     }
 

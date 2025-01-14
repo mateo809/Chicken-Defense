@@ -6,9 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Enemy Settings")]
     public EnemyComponent enemyComponent; 
-
     private Tourelle tourelle;
-
     public float currentHealth;
 
     [Header("Health Bar Settings")]
